@@ -1,0 +1,46 @@
+.chat-window {
+	width: 100%;
+	height: 50rem;
+	overflow: auto;
+}
+
+.msg-container,
+.ai-msg-container {
+	padding: 1rem;
+	background: #f7c8e0;
+	max-width: 30rem;
+	border-radius: 0.85rem;
+}
+
+.ai-msg-container {
+	background: whitesmoke;
+}
+
+.container-wrapper {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.aires-container-wrapper,
+.container-wrapper {
+	padding: 0.85rem;
+}
+
+@media only screen and (max-width: 600px) {
+	.chat-window {
+		height: 40rem;
+		padding: 0;
+	}
+
+	.msg-container,
+	.ai-msg-container {
+		width: 10rem;
+		padding: 0.5rem;
+		font-size: 0.85rem;
+	}
+
+	.aires-container-wrapper,
+	.container-wrapper {
+		padding: 0.85rem 0;
+	}
+}
