@@ -27,7 +27,7 @@ export default function App() {
 		console.log(randNum);
 		// const client = new w3cwebsocket(`ws://127.0.0.1:8000/ws/room/${randNum}/`);
 		const client = new w3cwebsocket(
-			`wss://chatai-backend-officialhaze.onrender.com/ws/room/${randNum}`,
+			`wss://chatai-backend-officialhaze.onrender.com/ws/room/${randNum}/`,
 		);
 		client.onopen = () => {
 			console.log("ws connection established");
@@ -56,7 +56,7 @@ export default function App() {
 		setInputVal("");
 		// const client = new w3cwebsocket(`ws://127.0.0.1:8000/ws/room/${randNum}/`);
 		const client = new w3cwebsocket(
-			`wss://chatai-backend-officialhaze.onrender.com/ws/room/${randNum}`,
+			`wss://chatai-backend-officialhaze.onrender.com/ws/room/${randNum}/`,
 		);
 		client.onopen = () => {
 			client.send(
