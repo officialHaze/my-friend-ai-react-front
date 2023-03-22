@@ -25,7 +25,10 @@ export default function App() {
 		const randNum = Math.floor(Math.random() * 100);
 		setRandNum(randNum);
 		console.log(randNum);
-		const client = new w3cwebsocket(`ws://127.0.0.1:8000/ws/room/${randNum}/`);
+		// const client = new w3cwebsocket(`ws://127.0.0.1:8000/ws/room/${randNum}/`);
+		const client = new w3cwebsocket(
+			`wss://chatai-backend-officialhaze.onrender.com/ws/room/${randNum}`,
+		);
 		client.onopen = () => {
 			console.log("ws connection established");
 		};
@@ -51,7 +54,10 @@ export default function App() {
 		e.preventDefault();
 		submitBtn.current?.setAttribute("disabled", null);
 		setInputVal("");
-		const client = new w3cwebsocket(`ws://127.0.0.1:8000/ws/room/${randNum}/`);
+		// const client = new w3cwebsocket(`ws://127.0.0.1:8000/ws/room/${randNum}/`);
+		const client = new w3cwebsocket(
+			`wss://chatai-backend-officialhaze.onrender.com/ws/room/${randNum}`,
+		);
 		client.onopen = () => {
 			client.send(
 				JSON.stringify({
