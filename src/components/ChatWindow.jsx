@@ -18,7 +18,7 @@ export default function ChatWindow({ messages, responses }) {
 			if (responses.length < messages.length) {
 				setError(true);
 			}
-		}, 5000);
+		}, 20000);
 	}, [messages, responses]);
 
 	return (
