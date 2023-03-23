@@ -7,9 +7,9 @@ export function speak(synth, data, disableSubmitBtn, enableSubmitBtn) {
 		utterThis.rate = 1.15;
 		let text = "";
 		let textArray = [];
-		for (let i = 0; i < data.message.length; i++) {
-			text += data.message[i];
-			if (data.message[i] === ".") {
+		for (let i = 0; i < data.length; i++) {
+			text += data[i];
+			if (data[i] === ".") {
 				textArray.push(text);
 				text = "";
 			}

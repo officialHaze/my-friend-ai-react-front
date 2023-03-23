@@ -34,7 +34,7 @@
 
 	.msg-container,
 	.ai-msg-container {
-		width: 10rem;
+		max-width: 20rem;
 		padding: 0.5rem;
 		font-size: 0.85rem;
 	}

@@ -1,17 +1,18 @@
 import { useEffect, useState, useRef } from "react";
-import { w3cwebsocket } from "websocket";
 import { speak } from "./utils/speak";
 import ChatWindow from "./components/ChatWindow";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import { postData } from "./utils/postData";
 import "./App.css";
 
 export default function App() {
 	const [inputVal, setInputVal] = useState("");
 	const [messages, setMessages] = useState([]);
 	const [responses, setResponses] = useState([]);
-	const [randNum, setRandNum] = useState();
+	// const [randNum, setRandNum] = useState();
 	const submitBtn = useRef(null);
+	const synth = window.speechSynthesis;
 
 	const disableSubmitBtn = () => {
 		submitBtn.current?.setAttribute("disabled", null);
@@ -22,49 +23,34 @@ export default function App() {
 	};
 
 	useEffect(() => {
-		const randNum = Math.floor(Math.random() * 100);
-		setRandNum(randNum);
-		console.log(randNum);
-		// const client = new w3cwebsocket(`ws://127.0.0.1:8000/ws/room/${randNum}/`);
-		const client = new w3cwebsocket(
-			`wss://chatai-backend-officialhaze.onrender.com/ws/room/${randNum}/`,
-		);
-		client.onopen = () => {
-			console.log("ws connection established");
-		};
-
-		client.onmessage = e => {
-			const synth = window.speechSynthesis;
-			const data = JSON.parse(e.data);
-			console.log(data);
-			if (data.type === "user text") {
-				setMessages(prevStr => {
-					return [...prevStr, data.userText];
-				});
-			} else if (data.type === "ai response") {
-				setResponses(prevStr => {
-					return [...prevStr, data.message];
-				});
-				speak(synth, data, disableSubmitBtn, enableSubmitBtn);
-			}
-		};
+		// const getDataFromServer = async () => {
+		// 	try {
+		// 		const messageFromAI = await postData();
+		// 		console.log(messageFromAI);
+		// 	} catch (err) {
+		// 		console.log(err);
+		// 	}
+		// };
+		// getDataFromServer();
 	}, []);
 
-	const handleSubmit = e => {
+	const handleSubmit = async e => {
 		e.preventDefault();
-		submitBtn.current?.setAttribute("disabled", null);
+		// submitBtn.current?.setAttribute("disabled", null);
 		setInputVal("");
-		// const client = new w3cwebsocket(`ws://127.0.0.1:8000/ws/room/${randNum}/`);
-		const client = new w3cwebsocket(
-			`wss://chatai-backend-officialhaze.onrender.com/ws/room/${randNum}/`,
-		);
-		client.onopen = () => {
-			client.send(
-				JSON.stringify({
-					message: inputVal,
-				}),
-			);
-		};
+		setMessages(prevStr => {
+			return [...prevStr, inputVal];
+		});
+		try {
+			const messageFromAI = await postData(inputVal);
+			console.log(messageFromAI);
+			setResponses(prevStr => {
+				return [...prevStr, messageFromAI];
+			});
+			speak(synth, messageFromAI, disableSubmitBtn, enableSubmitBtn);
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
 	return (
@@ -96,3 +82,19 @@ export default function App() {
 		</section>
 	);
 }
+
+// client.onmessage = e => {
+// 	const synth = window.speechSynthesis;
+// 	const data = JSON.parse(e.data);
+// 	console.log(data);
+// 	if (data.type === "user text") {
+// 		setMessages(prevStr => {
+// 			return [...prevStr, data.userText];
+// 		});
+// 	} else if (data.type === "ai response") {
+// 		setResponses(prevStr => {
+// 			return [...prevStr, data.message];
+// 		});
+// 		speak(synth, data, disableSubmitBtn, enableSubmitBtn);
+// 	}
+// };
