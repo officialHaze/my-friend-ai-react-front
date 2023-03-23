@@ -36,7 +36,7 @@ export default function App() {
 
 	const handleSubmit = async e => {
 		e.preventDefault();
-		// submitBtn.current?.setAttribute("disabled", null);
+		submitBtn.current?.setAttribute("disabled", null);
 		setInputVal("");
 		setMessages(prevStr => {
 			return [...prevStr, inputVal];
