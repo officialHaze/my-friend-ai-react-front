@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { speak } from "./utils/speak";
 import ChatWindow from "./components/ChatWindow";
 import Footer from "./components/Footer";
@@ -6,43 +6,40 @@ import Header from "./components/Header";
 import { postData } from "./utils/postData";
 import "./App.css";
 
+let userTextsArrayForASession = [];
+
 export default function App() {
 	const [inputVal, setInputVal] = useState("");
 	const [messages, setMessages] = useState([]);
 	const [responses, setResponses] = useState([]);
-	// const [randNum, setRandNum] = useState();
+	const [stopSpeechEnabled, enableStopSpeech] = useState(false);
 	const submitBtn = useRef(null);
 	const synth = window.speechSynthesis;
 
 	const disableSubmitBtn = () => {
 		submitBtn.current?.setAttribute("disabled", null);
+		enableStopSpeech(true);
 	};
 
 	const enableSubmitBtn = () => {
 		submitBtn.current?.removeAttribute("disabled", null);
+		enableStopSpeech(false);
 	};
-
-	useEffect(() => {
-		// const getDataFromServer = async () => {
-		// 	try {
-		// 		const messageFromAI = await postData();
-		// 		console.log(messageFromAI);
-		// 	} catch (err) {
-		// 		console.log(err);
-		// 	}
-		// };
-		// getDataFromServer();
-	}, []);
 
 	const handleSubmit = async e => {
 		e.preventDefault();
+		const inputObject = {
+			role: "user",
+			content: inputVal,
+		};
+		userTextsArrayForASession.push(inputObject);
 		submitBtn.current?.setAttribute("disabled", null);
 		setInputVal("");
 		setMessages(prevStr => {
 			return [...prevStr, inputVal];
 		});
 		try {
-			const messageFromAI = await postData(inputVal);
+			const messageFromAI = await postData(userTextsArrayForASession);
 			console.log(messageFromAI);
 			setResponses(prevStr => {
 				return [...prevStr, messageFromAI];
@@ -61,6 +58,17 @@ export default function App() {
 					messages={messages}
 					responses={responses}
 				/>
+				{stopSpeechEnabled && (
+					<div className="stop-speech-button-container">
+						<button
+							onClick={() => {
+								synth.cancel();
+								enableSubmitBtn();
+							}}>
+							<i className="fa-solid fa-stop"></i> Stop speaking
+						</button>
+					</div>
+				)}
 				<form onSubmit={handleSubmit}>
 					<textarea
 						value={inputVal}
@@ -82,19 +90,3 @@ export default function App() {
 		</section>
 	);
 }
-
-// client.onmessage = e => {
-// 	const synth = window.speechSynthesis;
-// 	const data = JSON.parse(e.data);
-// 	console.log(data);
-// 	if (data.type === "user text") {
-// 		setMessages(prevStr => {
-// 			return [...prevStr, data.userText];
-// 		});
-// 	} else if (data.type === "ai response") {
-// 		setResponses(prevStr => {
-// 			return [...prevStr, data.message];
-// 		});
-// 		speak(synth, data, disableSubmitBtn, enableSubmitBtn);
-// 	}
-// };

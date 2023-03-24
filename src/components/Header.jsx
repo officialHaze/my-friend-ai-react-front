@@ -8,9 +8,9 @@ function Header() {
 			<img
 				className="logo"
 				src={logo}
-				alt="chatAI-logo"
+				alt="speakAI-logo"
 			/>
-			<h1>ChatAI</h1>
+			<h1>SpeakAI</h1>
 		</div>
 	);
 }
