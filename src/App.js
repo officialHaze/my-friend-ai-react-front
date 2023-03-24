@@ -40,7 +40,6 @@ export default function App() {
 		});
 		try {
 			const messageFromAI = await postData(userTextsArrayForASession);
-			console.log(messageFromAI);
 			setResponses(prevStr => {
 				return [...prevStr, messageFromAI];
 			});
