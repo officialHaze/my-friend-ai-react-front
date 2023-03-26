@@ -12,7 +12,8 @@ const getTranscriptedData = async (aiResponse, audioLink) => {
 	try {
 		const { data } = await axios({
 			method: "POST",
-			url: "http://localhost:8000/api/transcribe-audio/",
+			// url: "http://localhost:8000/api/transcribe-audio/",
+			url: "https://chatai-backend-officialhaze.onrender.com/api/transcribe-audio/",
 			data: formData,
 		});
 		aiResponse(true, data.detail, audioLink);
