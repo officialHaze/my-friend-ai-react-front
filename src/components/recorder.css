@@ -1,0 +1,19 @@
+.record-button-holder {
+	display: flex;
+	align-items: center;
+	border-top: 1px solid black;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	padding: 0.5rem;
+}
+
+.fa-microphone,
+.fa-circle-stop {
+	font-size: 1.5rem;
+	cursor: pointer;
+	padding: 0.5rem;
+}
+
+.fa-circle-stop {
+	color: rgb(206, 1, 1);
+}

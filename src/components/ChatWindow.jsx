@@ -1,7 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
+import TypingDots from "./TypingDots";
 import "./chatWindow.css";
 
-let counter = 20;
+let counter = 25;
 let counterReducer;
 
 export default function ChatWindow({ messages, responses }) {
@@ -16,8 +17,8 @@ export default function ChatWindow({ messages, responses }) {
 	//clearing the counter reducer interval and resetting the retry counter
 	const resetRetryCounter = () => {
 		clearInterval(counterReducer);
-		counter = 20;
-		setRetryCounter(20);
+		counter = 25;
+		setRetryCounter(25);
 	};
 
 	//reset the error and retry hook and clear the reducer interval and reset retry counter on new message or response
@@ -62,11 +63,24 @@ export default function ChatWindow({ messages, responses }) {
 				return (
 					msg && (
 						<div key={i}>
-							<div className="container-wrapper">
-								<div className="msg-container">
-									<p>{msg}</p>
+							{msg.type === "text" ? (
+								<div className="container-wrapper">
+									<div className="msg-container">
+										<p>{msg.content}</p>
+									</div>
 								</div>
-							</div>
+							) : (
+								<div className="audio-container-wrapper">
+									<audio
+										controls
+										className="audio-container">
+										<source
+											src={msg.content}
+											type="audio/mp3"
+										/>
+									</audio>
+								</div>
+							)}
 							{responses[i] ? (
 								<div className="aires-container-wrapper">
 									<div className="ai-msg-container">
@@ -87,11 +101,7 @@ export default function ChatWindow({ messages, responses }) {
 													: "There was an error from the server while getting a response! Refreshing the page might sometimes solve the problem. If it dosen't please check back after sometime. Sorry for the inconvenience."}
 											</p>
 										) : (
-											<div className="typing-animation-container">
-												<div />
-												<div />
-												<div />
-											</div>
+											<TypingDots />
 										)}
 									</div>
 								</div>
