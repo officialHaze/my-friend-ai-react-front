@@ -1,0 +1,102 @@
+/* display flexs'  */
+.register-form,
+.register-form-container,
+main {
+	display: flex;
+}
+
+main {
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}
+
+.register-form-container,
+.register-form {
+	flex-direction: column;
+}
+
+.register-form {
+	gap: 3rem;
+	padding: 3rem 0;
+	align-items: center;
+}
+
+.register-form-container {
+	width: 30%;
+	border: 1px solid rgba(122, 122, 122, 0.5);
+	border-radius: 0.5rem;
+	overflow: hidden;
+}
+
+/* input elements  */
+input {
+	padding: 0.75rem 0.5rem;
+	width: 100%;
+	border: 1px solid rgba(122, 122, 122, 0.3);
+	border-radius: 0.35rem;
+	font-size: 0.85rem;
+	outline: none;
+	transition: 0.6s;
+}
+
+input:focus {
+	border: 1px solid #f70776;
+}
+
+input::placeholder {
+	color: rgba(128, 128, 128, 0.712);
+}
+
+.register-form > div {
+	width: 70%;
+}
+
+/* login form heading  */
+.heading {
+	padding: 0.5rem;
+	color: white;
+	background: linear-gradient(to right top, #f70776, #f06292);
+}
+
+/* submit button  */
+.register-button-container {
+	text-align: center;
+	position: relative;
+	width: fit-content !important;
+	border-radius: 0.25rem;
+	overflow: hidden;
+}
+
+/* transition 0.3s  */
+.register-btn,
+.button-fill {
+	transition: 0.3s;
+}
+
+.register-btn {
+	background: none;
+	border: 1px solid #f70776;
+	cursor: pointer;
+	padding: 0.5rem 1.5rem;
+	border-radius: 0.25rem;
+	font-size: 1rem;
+	color: #c3195d;
+}
+
+.button-fill {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 0;
+	background: linear-gradient(to right top, #f70776, #f06292);
+	z-index: -1;
+}
+
+.register-btn:hover + .button-fill {
+	height: 100%;
+}
+
+.register-btn:hover {
+	color: white;
+}

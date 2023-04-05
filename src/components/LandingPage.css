@@ -1,0 +1,187 @@
+/* display flexs'  */
+.login-form,
+.login-form-container,
+main,
+.google-login-btn,
+.google-login-container {
+	display: flex;
+}
+
+main {
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}
+
+.login-form-container,
+.login-form {
+	flex-direction: column;
+}
+
+.login-form {
+	gap: 1.5rem;
+	padding: 3rem 0 1rem;
+	align-items: center;
+}
+
+.login-form-container {
+	width: 30%;
+	border: 1px solid rgba(122, 122, 122, 0.5);
+	border-radius: 0.5rem;
+	overflow: hidden;
+}
+
+/* input elements  */
+input {
+	padding: 0.75rem 0.5rem;
+	width: 100%;
+	border: 1px solid rgba(122, 122, 122, 0.3);
+	border-radius: 0.35rem;
+	font-size: 0.85rem;
+	outline: none;
+	transition: 0.6s;
+}
+
+input:focus {
+	border: 1px solid #f70776;
+}
+
+input::placeholder {
+	color: rgba(128, 128, 128, 0.712);
+}
+
+.login-form > div {
+	width: 70%;
+}
+
+/* login form heading  */
+.heading {
+	padding: 0.5rem;
+	color: white;
+	background: linear-gradient(to right top, #f70776, #f06292);
+}
+
+/* submit button  */
+.button-container {
+	text-align: center;
+	position: relative;
+	width: fit-content !important;
+	border-radius: 1rem;
+	overflow: hidden;
+}
+
+/* transition 0.3s  */
+button,
+.button-fill,
+.google-login-btn,
+.google-button-fill {
+	transition: 0.3s;
+}
+
+button {
+	background: none;
+	border: 1px solid #f70776;
+	cursor: pointer;
+	padding: 0.5rem 1.5rem;
+	border-radius: 1rem;
+	font-size: 1rem;
+	color: #c3195d;
+}
+
+.button-fill {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 0;
+	background: linear-gradient(to right top, #f70776, #f06292);
+	z-index: -1;
+}
+
+button:hover + .button-fill {
+	height: 100%;
+}
+
+button:hover {
+	color: white;
+}
+
+/* register text  */
+.register-text {
+	padding: 0.5rem 5.4rem;
+	color: rgba(128, 128, 128, 0.658);
+	font-size: 0.95rem;
+}
+
+a {
+	text-decoration: none;
+	color: gray;
+}
+
+/* text align centers' */
+.or-text-container,
+.google-login-container {
+	text-align: center;
+}
+
+/* or text  */
+.or-text-container {
+	position: relative;
+	padding: 3rem;
+}
+
+.or-text {
+	position: absolute;
+	bottom: 2.65rem;
+	background: white;
+	left: 46%;
+	padding: 0 1rem;
+	color: rgba(128, 128, 128, 0.658);
+}
+
+hr {
+	border: 0.1px solid rgba(128, 128, 128, 0.658);
+}
+
+/* google login  */
+.google-login-container {
+	padding: 1rem 0 3rem;
+	justify-content: center;
+}
+
+.google-login-btn-wrapper {
+	width: 70%;
+	position: relative;
+	overflow: hidden;
+	border-radius: 0.35rem;
+}
+
+.google-login-btn {
+	padding: 0.85rem;
+	border-radius: 0.35rem;
+	border: 1px solid #19376d;
+	color: black;
+	/* background: #19376d; */
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row-reverse;
+	gap: 1rem;
+}
+
+.google-button-fill {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 0;
+	background: #19376d;
+	z-index: -1;
+}
+
+.google-login-btn:hover + .google-button-fill {
+	height: 100%;
+}
+
+/* google logo  */
+.google-logo{
+    font-size: 1.5rem;
+}

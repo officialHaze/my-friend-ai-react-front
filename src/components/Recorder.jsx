@@ -39,7 +39,7 @@ export default function Recorder({ aiResponse, aiSpeaking, isSpeechProcessing })
 			try {
 				const getUserMedia = async () => {
 					const mediaStream = await navigator.mediaDevices.getUserMedia(constraint);
-					console.log(mediaStream);
+					// console.log(mediaStream);
 					mediaRecorder = new MediaRecorder(mediaStream);
 				};
 				getUserMedia();
@@ -53,7 +53,7 @@ export default function Recorder({ aiResponse, aiSpeaking, isSpeechProcessing })
 	useEffect(() => {
 		if (mediaRecorderState === "inactive") {
 			mediaRecorder.ondataavailable = e => {
-				console.log(e.data);
+				// console.log(e.data);
 				setChunks(prevObj => {
 					return [...prevObj, e.data];
 				});
@@ -74,7 +74,6 @@ export default function Recorder({ aiResponse, aiSpeaking, isSpeechProcessing })
 	//getting the transcribed text from server and calling a function to get AI response
 	useEffect(() => {
 		if (audioBlob) {
-			console.log(audioBlob);
 			formData.append("audio_file", audioBlob, "voice_record.mp3");
 			getTranscriptedData(setValueForAIRes, audioLink)
 				.then(res => {

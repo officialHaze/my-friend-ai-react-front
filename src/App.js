@@ -1,128 +1,56 @@
-import { useState, useRef } from "react";
-import { speak } from "./utils/speak";
-import ChatWindow from "./components/ChatWindow";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import { postData } from "./utils/postData";
-import Recorder from "./components/Recorder";
-import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import Dashboard from "./components/Dashboard";
+import LandingPage from "./components/LandingPage";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Process from "./env";
+import Register from "./components/Register";
 
-let userTextsArrayForASession = [];
+const process = new Process();
 
 export default function App() {
-	const [inputVal, setInputVal] = useState("");
-	const [messages, setMessages] = useState([]);
-	const [responses, setResponses] = useState([]);
-	const [stopSpeechEnabled, enableStopSpeech] = useState(false);
-	const [isSpeechProcessing, setIsSpeechProcessing] = useState(false);
-	const submitBtn = useRef(null);
-	const synth = window.speechSynthesis;
+	const [serverConnectionEstablished, setServerConnectionEstablished] = useState(false);
+	const [tokenReceived, setTokenReceived] = useState(false);
 
-	const disableSubmitBtn = () => {
-		submitBtn.current?.setAttribute("disabled", null);
-		enableStopSpeech(true);
-	};
-
-	const enableSubmitBtn = () => {
-		submitBtn.current?.removeAttribute("disabled", null);
-		enableStopSpeech(false);
-		setIsSpeechProcessing(false);
-	};
-
-	const handleSubmit = async e => {
-		e.preventDefault();
-		gettingResponseFromAI(false, inputVal);
-		submitBtn.current?.setAttribute("disabled", null);
-		setInputVal("");
-	};
-
-	//helper function to get responses from AI
-	const gettingResponseFromAI = async (isVoiceclip, inputVal, voiceClipLink) => {
-		if (isVoiceclip) {
-			setMessages(prevObj => {
-				return [
-					...prevObj,
-					{
-						type: "voice-clip",
-						content: voiceClipLink,
-					},
-				]; //setting the user voice clip link to be displayed and played on the screen
+	useEffect(() => {
+		setTokenReceived(false); //setting the token received state to false everytime the components are rendered
+		axios
+			.get(process.env.SERVER_CONNECTION_URL)
+			.then(res => {
+				console.log(res);
+				setServerConnectionEstablished(true);
+			})
+			.catch(err => {
+				console.log(err);
 			});
-		} else {
-			setMessages(prevObj => {
-				return [
-					...prevObj,
-					{
-						type: "text",
-						content: inputVal,
-					},
-				];
-			}); //setting the user message to display on screen
-		}
+	}, []);
 
-		const inputObject = {
-			role: "user",
-			content: inputVal,
-		};
-		userTextsArrayForASession.push(inputObject);
-		try {
-			const messageFromAI = await postData(userTextsArrayForASession);
-			setResponses(prevStr => {
-				return [...prevStr, messageFromAI];
-			});
-			speak(synth, messageFromAI, disableSubmitBtn, enableSubmitBtn);
-		} catch (err) {
-			console.log(err);
-		}
-	};
+	//get the access and refresh token
+	useEffect(() => {
+		const access_token = localStorage.getItem("access_token");
+		const refresh_token = localStorage.getItem("refresh_token");
 
-	return (
-		<section>
-			<Header />
-			<div className="main">
-				<ChatWindow
-					messages={messages}
-					responses={responses}
-				/>
-				{stopSpeechEnabled && (
-					<div className="stop-speech-button-container">
-						<button
-							onClick={() => {
-								synth.cancel();
-								enableSubmitBtn();
-							}}>
-							<i className="fa-solid fa-stop"></i> Stop speaking
-						</button>
-					</div>
-				)}
-				<form onSubmit={handleSubmit}>
-					<textarea
-						value={!isSpeechProcessing ? inputVal : ""}
-						onChange={e => {
-							if (!isSpeechProcessing) {
-								const { value } = e.target;
-								setInputVal(value);
-							}
-						}}
-					/>
-					{inputVal ? (
-						<button
-							ref={submitBtn}
-							type="submit">
-							<i
-								className="fa-solid fa-paper-plane"
-								style={{ color: "#30c1d5" }}></i>
-						</button>
-					) : (
-						<Recorder
-							aiResponse={gettingResponseFromAI}
-							aiSpeaking={stopSpeechEnabled}
-							isSpeechProcessing={setIsSpeechProcessing}
-						/>
-					)}
-				</form>
-			</div>
-			<Footer />
-		</section>
+		if (access_token && refresh_token) {
+			setTokenReceived(true);
+		}
+	}, [tokenReceived]);
+
+	return serverConnectionEstablished ? (
+		<Routes>
+			<Route
+				path="/"
+				element={
+					tokenReceived ? <Dashboard /> : <LandingPage tokenReceived={setTokenReceived} />
+				}
+			/>
+			<Route
+				path="/register"
+				element={<Register />}
+			/>
+		</Routes>
+	) : (
+		<div>
+			Establishing a secure connection with the server, please wait, this might take some time
+		</div>
 	);
 }
