@@ -1,4 +1,5 @@
-const baseUrl = "http://localhost:8000/api/server-connection/";
+// const baseUrl = "http://localhost:8000/api/server-connection/";
+const baseUrl = "https://chatai-backend-officialhaze.onrender.com/api/server-connection/";
 
 export default class Process {
 	constructor() {
