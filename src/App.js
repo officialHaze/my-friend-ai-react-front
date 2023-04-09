@@ -74,7 +74,7 @@ export default function App() {
 				element={<Register />}
 			/>
 			<Route
-				path="/create-superuser/thisismysecretwhichisiambatmanfearmeiamthegreat"
+				path="/create-superuser/thisismysecret"
 				element={<CreateSuperUser />}
 			/>
 		</Routes>
