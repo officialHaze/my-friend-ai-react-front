@@ -8,7 +8,7 @@ import Process from "./env";
 import Register from "./components/Register";
 import EstablishConnection from "./components/EstablishConnection";
 
-// const process = new Process();
+const process = new Process();
 
 export default function App() {
 	const [serverConnectionEstablished, setServerConnectionEstablished] = useState(false);

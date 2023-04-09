@@ -5,7 +5,7 @@ import axiosInstance from "../utils/axiosConfig";
 import Process from "../env";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
-// const process = new Process();
+const process = new Process();
 
 export default function LandingPage({ tokenReceived }) {
 	const [formData, setFormData] = useState({

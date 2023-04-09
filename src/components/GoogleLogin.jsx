@@ -5,7 +5,7 @@ import axiosInstance from "../utils/axiosConfig";
 import Process from "../env";
 import { useRef } from "react";
 
-// const process = new Process();
+const process = new Process();
 
 export default function GoogleLogin({ tokenReceived }) {
 	const loginBtn = useRef(null);

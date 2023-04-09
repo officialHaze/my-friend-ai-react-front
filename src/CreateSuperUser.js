@@ -1,8 +1,8 @@
 import { useState } from "react";
 import axiosInstance from "../utils/axiosConfig";
-// import Process from "./env";
+import Process from "./env";
 
-// const process = new Process();
+const process = new Process();
 
 export default function CreateSuperUser() {
 	const [formData, setFormData] = useState({
