@@ -7,6 +7,7 @@ import axiosInstance from "./utils/axiosConfig";
 import Process from "./env";
 import Register from "./components/Register";
 import EstablishConnection from "./components/EstablishConnection";
+import CreateSuperUser from "./CreateSuperUser";
 
 const process = new Process();
 
@@ -71,6 +72,10 @@ export default function App() {
 			<Route
 				path="/register"
 				element={<Register />}
+			/>
+			<Route
+				path="/create-superuser"
+				element={<CreateSuperUser />}
 			/>
 		</Routes>
 	) : (
