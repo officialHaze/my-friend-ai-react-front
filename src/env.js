@@ -1,13 +1,10 @@
-// const baseUrl = "http://localhost:8000/api/server-connection/";
-const baseUrl = "https://chatai-backend-officialhaze.onrender.com/api/server-connection/";
+const baseUrl = process.env.REACT_APP_CONNECTION_ESTABLISH_URL_PROD;
 
-const prod_client_id = "G8JiKC07Wgxcxcb1R2QXW44VF3K7E79X7nM5Vf9g";
-const dev_client_id = "2xSAxi8I6twhjQ6V829kBpg6JzrcuIiEUjw6yNj5";
+const prod_client_id = process.env.REACT_APP_DJANGO_APP_PROD_CLIENT_ID;
+const dev_client_id = process.env.REACT_APP_DJANGO_APP_DEV_CLIENT_ID;
 
-const prod_client_secret =
-	"x5Qb8tsKKijfq2uh5hPURGE7CypgGuoV27npNR6jGQlQzPcOR2cKdFRz9Ka9154A4rtBJFO97kgSUXiO2E7F00uYZ85acsjgRFNidgOc3BLWPuIzUcsJ5pYwOXg8wBoa";
-const dev_client_secret =
-	"PwekaEMknVnuqecoikq8W8gG8t9XxsKDQkX6OXRb7zJq0i3HFk8iyVStGr6ad5KLdeaI4EwCrn0AjN3hqrzw75xLiWsABeQgI5jGZF0M6xpujDvfB1VuxApBUjmuf1Pt";
+const prod_client_secret = process.env.REACT_APP_DJANGO_APP_PROD_CLIENT_SECRET;
+const dev_client_secret = process.env.REACT_APP_DJANGO_APP_DEV_CLIENT_SECRET;
 
 export default class Process {
 	constructor() {
@@ -15,10 +12,9 @@ export default class Process {
 			SERVER_CONNECTION_URL: baseUrl,
 			CLIENT_ID: prod_client_id,
 			CLIENT_SECRET: prod_client_secret,
-			GOOGLE_CLIENT_ID:
-				"723407852102-l9a5r50d2pmpghq38msjso9kus05jnoc.apps.googleusercontent.com",
-			GOOGLE_CLIENT_SECRET: "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",
-			ADMIN_SECRET: "thisismysecretwhichisiambatmanfearmeiamthegreat",
+			GOOGLE_CLIENT_ID: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+			GOOGLE_CLIENT_SECRET: process.env.REACT_APP_GOOGLE_CLIENT_SECRET,
+			ADMIN_SECRET: process.env.REACT_APP_ADMIN_SECRET,
 		};
 	}
 }

@@ -15,7 +15,6 @@ export async function postData(userText) {
 		});
 		return res.data.message;
 	} catch (err) {
-		localStorage.removeItem("access_token");
 		throw err;
 	}
 }

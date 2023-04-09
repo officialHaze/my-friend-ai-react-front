@@ -1,5 +1,5 @@
 import "./establish-connection.css";
-import Loader from "./Loader";
+import Loader from "./PageLoader";
 
 export default function EstablishConnection() {
 	return (
@@ -8,7 +8,7 @@ export default function EstablishConnection() {
 				Establishing a secure connection with the server, please wait, this might take some
 				time.
 			</h2>
-				<Loader />
+			<Loader />
 		</div>
 	);
 }

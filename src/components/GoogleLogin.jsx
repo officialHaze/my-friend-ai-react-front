@@ -3,12 +3,13 @@ import { FcGoogle } from "react-icons/fc";
 import { useGoogleLogin } from "@react-oauth/google";
 import axiosInstance from "../utils/axiosConfig";
 import Process from "../env";
-import { useRef } from "react";
+import { useState } from "react";
+import Loader from "./Loader";
 
 const process = new Process();
 
 export default function GoogleLogin({ tokenReceived }) {
-	const loginBtn = useRef(null);
+	const [isloginInitiated, setIsLoginInitiated] = useState(false);
 	const login = useGoogleLogin({
 		onSuccess: tokenRes => {
 			axiosInstance
@@ -24,7 +25,7 @@ export default function GoogleLogin({ tokenReceived }) {
 					localStorage.setItem("access_token", data.access_token);
 					localStorage.setItem("refresh_token", data.refresh_token);
 					tokenReceived(true);
-					loginBtn.current?.removeAttribute("disabled", null);
+					setIsLoginInitiated(false);
 				})
 				.catch(err => {
 					console.log(err);
@@ -33,19 +34,24 @@ export default function GoogleLogin({ tokenReceived }) {
 	});
 
 	const handleGoogleLogin = () => {
-		loginBtn.current?.setAttribute("disabled", null);
+		setIsLoginInitiated(true);
 		login();
 	};
 
 	return (
 		<div className="google-login-container">
-			<div className="google-login-btn-wrapper">
-				<button
-					ref={loginBtn}
-					className="google-login-btn"
-					onClick={handleGoogleLogin}>
-					Login with Google <FcGoogle className="google-logo" />
-				</button>
+			<div
+				className="google-login-btn-wrapper"
+				style={{ display: "flex", justifyContent: "center" }}>
+				{!isloginInitiated ? (
+					<button
+						className="google-login-btn"
+						onClick={handleGoogleLogin}>
+						Login with Google <FcGoogle className="google-logo" />
+					</button>
+				) : (
+					<Loader />
+				)}
 				<div className="google-button-fill" />
 			</div>
 		</div>

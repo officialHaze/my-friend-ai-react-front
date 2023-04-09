@@ -4,6 +4,7 @@ import { useState } from "react";
 import axiosInstance from "../utils/axiosConfig";
 import Process from "../env";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import Loader from "./Loader";
 
 const process = new Process();
 
@@ -12,6 +13,8 @@ export default function LandingPage({ tokenReceived }) {
 		username: "",
 		password: "",
 	});
+	const [loginError, isLoginError] = useState(false);
+	const [isloginInitiated, setIsLoginInitiated] = useState(false);
 
 	const handleChange = e => {
 		const { name, value } = e.target;
@@ -41,6 +44,7 @@ export default function LandingPage({ tokenReceived }) {
 
 	const handleSubmit = async e => {
 		e.preventDefault();
+		setIsLoginInitiated(true);
 		setFormData({
 			username: "",
 			password: "",
@@ -55,15 +59,31 @@ export default function LandingPage({ tokenReceived }) {
 			});
 			localStorage.setItem("access_token", data.access_token);
 			localStorage.setItem("refresh_token", data.refresh_token);
-			tokenReceived(true);
 			localStorage.setItem("user_login_type", "on-site-login");
+			setIsLoginInitiated(false);
+			tokenReceived(true);
 		} catch (err) {
 			console.log(err);
+			setIsLoginInitiated(false);
+			isLoginError(true);
+			removeLoginError();
 		}
 	};
 
+	//set timeout to remove any login error from screen
+	async function removeLoginError() {
+		setTimeout(() => {
+			isLoginError(false);
+		}, 5000);
+	}
+
 	return (
 		<main className="landing-page">
+			{loginError && (
+				<div className="login-error-msg-container">
+					<p>Error! Please check the details and login again!</p>
+				</div>
+			)}
 			<div className="login-form-container">
 				<div className="heading">
 					<h1 style={{ textAlign: "center" }}>Login</h1>
@@ -79,6 +99,7 @@ export default function LandingPage({ tokenReceived }) {
 							placeholder="Username"
 							aria-placeholder="username"
 							value={formData.username}
+							style={{ border: loginError && "1px solid red" }}
 						/>
 					</div>
 					<div>
@@ -89,12 +110,19 @@ export default function LandingPage({ tokenReceived }) {
 							placeholder="Password"
 							aria-placeholder="password"
 							value={formData.password}
+							style={{ border: loginError && "1px solid red" }}
 						/>
 					</div>
-					<div className="button-container">
-						<button>Login</button>
-						<div className="button-fill" />
-					</div>
+					{!isloginInitiated ? (
+						<div className="button-container">
+							<button>Login</button>
+							<div className="button-fill" />
+						</div>
+					) : (
+						<div style={{ display: "flex", justifyContent: "center" }}>
+							<Loader />
+						</div>
+					)}
 				</form>
 				<div className="register-text">
 					<p>

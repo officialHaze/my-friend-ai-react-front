@@ -32,12 +32,15 @@ export default function Dashboard({ tokenReceived }) {
 		body: "",
 	});
 	const [noteDeleteTrigger, setNoteDeleteTrigger] = useState(false);
+	const [hasMicrophoneAccess, setHasMicrophoneAccess] = useState(true);
+
 	const [activeView, setActiveView] = useState({
 		chat: true,
 		note: false,
 		savedNotes: false,
 		info: false,
-	});
+	}); // for mobile screens
+
 	const submitBtn = useRef(null);
 	const synth = window.speechSynthesis;
 
@@ -76,7 +79,7 @@ export default function Dashboard({ tokenReceived }) {
 						type: "voice-clip",
 						content: voiceClipLink,
 					},
-				]; //setting the user voice clip link to be displayed and played on the screen
+				]; //setting the user voice clip link to later display audio element and play it on the screen
 			});
 		} else {
 			setMessages(prevObj => {
@@ -102,8 +105,11 @@ export default function Dashboard({ tokenReceived }) {
 			});
 			speak(synth, messageFromAI, disableSubmitBtn, enableSubmitBtn);
 		} catch (err) {
-			tokenReceived(false);
-			console.log(err);
+			const { status } = err.response;
+			console.log(status);
+			if (status === 401) {
+				tokenReceived(false);
+			}
 		}
 	};
 
@@ -130,7 +136,7 @@ export default function Dashboard({ tokenReceived }) {
 					console.log(err);
 					localStorage.removeItem("access_token");
 					setTokenReceived(false);
-				});
+				}); //get user google profile details
 		} else if (access_token && user_login_type === "on-site-login") {
 			axiosInstance
 				.get("api/user/user-details/", {
@@ -150,7 +156,7 @@ export default function Dashboard({ tokenReceived }) {
 					console.log(err);
 					localStorage.removeItem("access_token");
 					setTokenReceived(false);
-				});
+				}); //get user django profile details
 		}
 	}, []);
 
@@ -194,6 +200,18 @@ export default function Dashboard({ tokenReceived }) {
 				}
 			});
 	};
+
+	//check wether user has blocked the permission to use mic
+	useEffect(() => {
+		navigator.mediaDevices
+			.getUserMedia({ audio: true })
+			.then(res => {
+				setHasMicrophoneAccess(true);
+			})
+			.catch(err => {
+				setHasMicrophoneAccess(false);
+			});
+	}, []);
 
 	return (
 		<section>
@@ -261,7 +279,7 @@ export default function Dashboard({ tokenReceived }) {
 												rows={1}
 												placeholder="Type a message"
 											/>
-											{inputVal ? (
+											{inputVal || !hasMicrophoneAccess ? (
 												<button
 													className="text-btn"
 													ref={submitBtn}
@@ -274,6 +292,7 @@ export default function Dashboard({ tokenReceived }) {
 													aiSpeaking={stopSpeechEnabled}
 													isSpeechProcessing={setIsSpeechProcessing}
 													tokenReceived={tokenReceived}
+													hasMicrophoneAccess={setHasMicrophoneAccess}
 												/>
 											)}
 										</form>

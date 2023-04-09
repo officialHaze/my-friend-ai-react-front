@@ -137,22 +137,12 @@ form {
 @media only screen and (max-width: 600px) {
 	section {
 		min-height: 100vh;
-	}
-
-	.main {
-		border-radius: 0;
-		box-shadow: none;
-		background: linear-gradient(
-			to right top,
-			rgba(255, 255, 255, 0.3),
-			rgba(255, 255, 255, 0.5)
-		);
-		backdrop-filter: blur(0.5rem);
+		justify-content: center;
+		align-items: center;
 	}
 
 	.chatheading-chatwindow-container {
-		padding: 0;
-		height: 100%;
+		padding: 0.5rem;
 	}
 
 	.chat-board-container {
@@ -162,6 +152,7 @@ form {
 
 	.info-container {
 		padding: 1rem 0.5rem;
+		height: 100vh;
 	}
 
 	.about-body > p {

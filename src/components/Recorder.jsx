@@ -8,6 +8,7 @@ const constraint = { audio: true };
 let mediaRecorder;
 let setValueForAIRes;
 let setTokenReceived;
+let hasMicAccess;
 
 const getTranscriptedData = async (aiResponse, audioLink) => {
 	const access_token = localStorage.getItem("access_token");
@@ -28,11 +29,22 @@ const getTranscriptedData = async (aiResponse, audioLink) => {
 	}
 };
 
-export default function Recorder({ aiResponse, aiSpeaking, isSpeechProcessing, tokenReceived }) {
+export default function Recorder({
+	aiResponse,
+	aiSpeaking,
+	isSpeechProcessing,
+	tokenReceived,
+	hasMicrophoneAccess,
+}) {
 	setValueForAIRes = aiResponse;
+
 	setTokenReceived = value => {
 		tokenReceived(value);
 	}; //calling the tokenReceived function before directly using it inside the use effect hook
+
+	hasMicAccess = value => {
+		hasMicrophoneAccess(value);
+	};
 
 	const [mediaRecorderState, setMediaRecorderState] = useState();
 	const [chunks, setChunks] = useState([]);
@@ -47,12 +59,11 @@ export default function Recorder({ aiResponse, aiSpeaking, isSpeechProcessing, t
 			try {
 				const getUserMedia = async () => {
 					const mediaStream = await navigator.mediaDevices.getUserMedia(constraint);
-					// console.log(mediaStream);
 					mediaRecorder = new MediaRecorder(mediaStream);
 				};
 				getUserMedia();
 			} catch (err) {
-				console.log(err.message);
+				hasMicAccess(false);
 			}
 		}
 	}, []);

@@ -14,7 +14,8 @@ export function speak(synth, data, disableSubmitBtn, enableSubmitBtn) {
 		let textArray = [];
 		for (let i = 0; i < data.length; i++) {
 			text += data[i];
-			if (data[i] === ".") { //breaking signal is period
+			if (data[i] === ".") {
+				//breaking signal is period
 				textArray.push(text);
 				text = "";
 			}
@@ -24,7 +25,6 @@ export function speak(synth, data, disableSubmitBtn, enableSubmitBtn) {
 		utterThis.text = textArray[i];
 		synth.speak(utterThis);
 		if (synth.speaking) {
-			console.log("speaking");
 			disableSubmitBtn();
 		}
 		utterThis.onend = () => {
@@ -33,7 +33,6 @@ export function speak(synth, data, disableSubmitBtn, enableSubmitBtn) {
 				utterThis.text = textArray[i];
 				synth.speak(utterThis);
 			} else {
-				console.log("finished");
 				enableSubmitBtn();
 				return;
 			}

@@ -10,6 +10,8 @@ main,
 main {
 	align-items: center;
 	justify-content: center;
+	flex-direction: column;
+	gap: 2rem;
 	height: 100vh;
 }
 
@@ -186,6 +188,15 @@ hr {
 	font-size: 1.5rem;
 }
 
+/* login error box  */
+.login-error-msg-container{
+	padding: 2rem 1rem;
+	background: red;
+	color: white;
+	border-radius: 1rem;
+}
+
+
 /* media query  */
 @media only screen and (max-width: 600px) {
 	/* main {
@@ -208,5 +219,10 @@ hr {
 
 	.or-text-container {
 		padding: 3rem 1rem;
+	}
+
+	.or-text{
+		left: 44%;
+		bottom: 2.4rem;
 	}
 }

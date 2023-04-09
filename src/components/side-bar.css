@@ -4,16 +4,24 @@
 .info-sidebar-container,
 .notepad-sidebar-container,
 .chat-sidebar-container,
-.savedNotes-sidebar-container {
+.savedNotes-sidebar-container,
+.summon-sidebar,
+.hide-sidebar {
 	display: flex;
 	flex-direction: column;
 }
 
-.sidebar-wrapper {
+.sidebar-wrapper,
+.hide-the-sidebar,
+.summon-the-sidebar {
 	justify-content: space-between;
 	background: black;
 	color: white;
 	border-radius: 0 1rem 1rem 0;
+	position: absolute;
+	left: 0;
+	z-index: 10;
+	transition: transform 0.5s;
 }
 
 .user-img-container-sidebar {
@@ -100,6 +108,30 @@
 	animation: tabHighlighter 0.2s ease-in;
 }
 
+/* summon and hide sidebar  */
+.summon-sidebar,
+.hide-sidebar {
+	color: white;
+	position: absolute;
+	top: 40%;
+	left: 3.5rem;
+	z-index: 5;
+	font-size: 1.5rem;
+	cursor: pointer;
+	height: 5rem;
+	justify-content: center;
+	background: #3f3f44;
+	border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.hide-the-sidebar {
+	transform: translateX(-3.7rem);
+}
+
+.summon-the-sidebar {
+	transform: translateX(0);
+}
+
 @keyframes tabHighlighter {
 	from {
 		width: 0;
@@ -114,7 +146,10 @@
 	.info-sidebar-container,
 	.notepad-sidebar-container,
 	.chat-sidebar-container,
-	.savedNotes-sidebar-container {
+	.savedNotes-sidebar-container,
+	.sidebar-wrapper,
+	.hide-sidebar,
+	.summon-sidebar {
 		display: none;
 	}
 }

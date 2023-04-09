@@ -16,7 +16,6 @@ export default function App() {
 	const [tokenReceived, setTokenReceived] = useState(false);
 
 	useEffect(() => {
-		// setTokenReceived(false); //setting the token received state to false everytime the components are rendered
 		axios
 			.get(process.env.SERVER_CONNECTION_URL)
 			.then(res => {
@@ -74,7 +73,7 @@ export default function App() {
 				element={<Register />}
 			/>
 			<Route
-				path="/create-superuser/thisismysecret"
+				path={`/create-superuser/${process.env.ADMIN_SECRET}`}
 				element={<CreateSuperUser />}
 			/>
 		</Routes>

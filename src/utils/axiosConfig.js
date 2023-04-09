@@ -1,9 +1,6 @@
 import axios from "axios";
 
-// const baseUrl = "http://localhost:8000/";
-
-// axios.defaults.baseURL = "http://localhost:8000/";
-axios.defaults.baseURL = "https://chatai-backend-officialhaze.onrender.com/";
+axios.defaults.baseURL = process.env.REACT_APP_AXIOS_BASE_URL_PROD;
 
 const axiosInstance = axios.create({
 	timeout: 100000,
