@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axiosInstance from "../utils/axiosConfig";
-import Process from "./env";
+import Process from "../env";
 
 const process = new Process();
 

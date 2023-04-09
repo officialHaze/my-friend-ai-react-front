@@ -7,7 +7,7 @@ import axiosInstance from "./utils/axiosConfig";
 import Process from "./env";
 import Register from "./components/Register";
 import EstablishConnection from "./components/EstablishConnection";
-import CreateSuperUser from "./CreateSuperUser";
+import CreateSuperUser from "./components/CreateSuperUser";
 
 const process = new Process();
 
