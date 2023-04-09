@@ -1,17 +1,31 @@
 import React, { useRef, useEffect, useState } from "react";
 import TypingDots from "./TypingDots";
 import "./chatWindow.css";
+import logo from "../robot-logo.jpg";
 
 let counter = 25;
 let counterReducer;
 
-export default function ChatWindow({ messages, responses }) {
+export default function ChatWindow({ messages, responses, userDetails }) {
 	const bottomMarker = useRef(null);
 	const [errorInRes, setError] = useState(false);
 	const [retryCounter, setRetryCounter] = useState(counter);
 	const [retry, setRetry] = useState(false);
 	const updatedResponses = responses.map(response => {
 		return response.replace(/\n/g, "</br>");
+	});
+	const [userProfilePic, setUserProfilePic] = useState("");
+
+	//replacing all new lines with a break(<br>) in user messages
+	const updatedMessages = messages.map(message => {
+		if (message.type === "text") {
+			return {
+				...message,
+				content: message.content.replace(/\n/g, "</br>"),
+			};
+		} else {
+			return message;
+		}
 	});
 
 	//clearing the counter reducer interval and resetting the retry counter
@@ -23,7 +37,7 @@ export default function ChatWindow({ messages, responses }) {
 
 	//reset the error and retry hook and clear the reducer interval and reset retry counter on new message or response
 	useEffect(() => {
-		bottomMarker.current?.scrollIntoView({ behaviour: "smooth" });
+		bottomMarker.current.scrollIntoView({ behaviour: "smooth" });
 		resetRetryCounter();
 		setError(false);
 		setRetry(false);
@@ -57,52 +71,93 @@ export default function ChatWindow({ messages, responses }) {
 		}
 	}, [retryCounter]);
 
+	//store the user profile image address once received
+	useEffect(() => {
+		setUserProfilePic(userDetails.profilePic);
+	}, [userDetails]);
+
 	return (
 		<div className="chat-window">
-			{messages.map((msg, i) => {
+			{updatedMessages.map((msg, i) => {
 				return (
 					msg && (
 						<div key={i}>
 							{msg.type === "text" ? (
 								<div className="container-wrapper">
-									<div className="msg-container">
-										<p>{msg.content}</p>
+									<div className="user-pro-img-container">
+										<img
+											className="user-profile-image"
+											src={userProfilePic}
+											alt="user-img"
+										/>
+									</div>
+									<div className="chat-bubble">
+										<div className="msg-container">
+											<p dangerouslySetInnerHTML={{ __html: msg.content }} />
+										</div>
 									</div>
 								</div>
 							) : (
 								<div className="audio-container-wrapper">
-									<audio
-										controls
-										className="audio-container">
-										<source
-											src={msg.content}
-											type="audio/mp3"
+									<div className="user-pro-img-container">
+										<img
+											className="user-profile-image"
+											src={userProfilePic}
+											alt="user-img"
 										/>
-									</audio>
+									</div>
+									<div className="chat-bubble">
+										<audio
+											controls
+											className="audio-container">
+											<source
+												src={msg.content}
+												type="audio/mp3"
+											/>
+										</audio>
+									</div>
 								</div>
 							)}
 							{responses[i] ? (
 								<div className="aires-container-wrapper">
-									<div className="ai-msg-container">
-										<p
-											dangerouslySetInnerHTML={{
-												__html: updatedResponses[i],
-											}}
+									<div className="ai-pro-img-container">
+										<img
+											className="ai-profile-image"
+											src={logo}
+											alt="user-img"
 										/>
+									</div>
+									<div className="ai-chat-bubble">
+										<div className="ai-msg-container">
+											<p
+												dangerouslySetInnerHTML={{
+													__html: updatedResponses[i],
+												}}
+											/>
+										</div>
 									</div>
 								</div>
 							) : (
 								<div className="aires-container-wrapper">
-									<div className="ai-msg-container">
-										{errorInRes ? (
-											<p style={{ color: "red" }}>
-												{retry
-													? `Error getting response, Retrying, please wait (${retryCounter})`
-													: "There was an error from the server while getting a response! Refreshing the page might sometimes solve the problem. If it dosen't please check back after sometime. Sorry for the inconvenience."}
-											</p>
-										) : (
-											<TypingDots />
-										)}
+									<div className="ai-pro-img-container">
+										<img
+											className="ai-profile-image"
+											src={logo}
+											alt="user-img"
+										/>
+									</div>
+									<div className="ai-chat-bubble">
+										<div className="ai-msg-container">
+											{errorInRes ? (
+												<p style={{ color: "red" }}>
+													{retry
+														? `Error getting response, Retrying, please wait (${retryCounter})`
+														: "There was an error from the server while getting a response! Refreshing the page might sometimes solve the problem. If it dosen't please check back after sometime. Sorry for the inconvenience."}
+												</p>
+											) : (
+												<TypingDots />
+											)}
+										</div>
 									</div>
 								</div>
 							)}
@@ -110,7 +165,7 @@ export default function ChatWindow({ messages, responses }) {
 					)
 				);
 			})}
-			<div ref={bottomMarker} />
+			<div ref={bottomMarker}></div>
 		</div>
 	);
 }

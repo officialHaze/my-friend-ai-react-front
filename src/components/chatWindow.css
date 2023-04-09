@@ -1,7 +1,8 @@
 .chat-window {
 	width: 100%;
-	max-height: 50rem;
+	height: 55vh;
 	overflow: auto;
+	font-size: 0.85rem;
 }
 
 .msg-container,
@@ -9,11 +10,15 @@
 	padding: 1rem;
 	background: #f7c8e0;
 	max-width: 30rem;
-	border-radius: 0.85rem;
+}
+
+.msg-container {
+	border-radius: 2rem 0 2rem 2rem;
 }
 
 .ai-msg-container {
-	background: whitesmoke;
+	background: #eef2ff;
+	border-radius: 0 2rem 2rem 2rem;
 }
 
 .container-wrapper,
@@ -22,9 +27,20 @@
 	justify-content: flex-end;
 }
 
+.audio-container-wrapper {
+	flex-direction: column;
+	align-items: flex-end;
+}
+
 .aires-container-wrapper,
+.container-wrapper,
+.audio-container-wrapper {
+	padding: 1rem 2rem;
+}
+
 .container-wrapper {
-	padding: 0.85rem;
+	flex-direction: column;
+	align-items: flex-end;
 }
 
 /*audio container*/
@@ -32,17 +48,57 @@ audio::-webkit-media-controls-panel {
 	background-color: #f7c8e0;
 }
 
+/* user profile image  */
+.user-profile-image,
+.ai-profile-image {
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: 100%;
+}
+
+.user-pro-img-container,
+.ai-pro-img-container {
+	width: fit-content;
+}
+
+/* chat bubble  */
+.chat-bubble {
+	padding-right: 2.7rem;
+}
+
+.ai-chat-bubble {
+	padding-left: 2.7rem;
+}
+
+/* custom scroll bar  */
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	border-radius: 10px;
+	/* background: black; */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #c0dbea;
+	border-radius: 10px;
+}
+
 @media only screen and (max-width: 600px) {
 	.chat-window {
-		max-height: 40rem;
-		padding: 0;
+		height: 84vh;
+		padding: 0 0.5rem;
 	}
 
 	.msg-container,
 	.ai-msg-container {
-		max-width: 20rem;
-		padding: 0.5rem;
-		font-size: 0.85rem;
+		max-width: 13.5rem;
+		padding: 0.5rem 0.9rem;
+		font-size: 0.7rem;
 	}
 
 	.aires-container-wrapper,
@@ -51,6 +107,25 @@ audio::-webkit-media-controls-panel {
 	}
 
 	audio {
-		width: 15rem;
+		width: 11rem;
+		height: 2rem;
+	}
+
+	.audio-container-wrapper {
+		padding: 1rem 0.85rem;
+	}
+
+	.chat-bubble {
+		padding-right: 2rem;
+	}
+
+	.ai-chat-bubble {
+		padding-left: 2rem;
+	}
+
+	.user-profile-image,
+	.ai-profile-image {
+		width: 2rem;
+		height: 2rem;
 	}
 }

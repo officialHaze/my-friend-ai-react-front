@@ -1,0 +1,140 @@
+/* display flexs'  */
+.sidebar-wrapper,
+.user-img-container-sidebar,
+.info-sidebar-container,
+.notepad-sidebar-container,
+.chat-sidebar-container,
+.savedNotes-sidebar-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.sidebar-wrapper {
+	justify-content: space-between;
+	background: black;
+	color: white;
+	border-radius: 0 1rem 1rem 0;
+}
+
+.user-img-container-sidebar {
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 1.5rem 0.5rem;
+	position: relative;
+}
+
+.user-img-container-sidebar::after {
+	content: "";
+	width: 3rem;
+	height: 3rem;
+	border-radius: 100%;
+	position: absolute;
+	left: 5.5px;
+	top: 22px;
+	border: 2px solid rgba(255, 255, 255, 0.7);
+	cursor: pointer;
+}
+
+.user-profile-img-sidebar {
+	width: 3rem;
+	height: 3rem;
+	border-radius: 100%;
+	border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.user-img-container-sidebar:hover > img + div {
+	display: block;
+}
+
+.username-container {
+	position: absolute;
+	left: 4.5rem;
+	top: 3rem;
+	background: grey;
+	width: 5rem;
+	z-index: 10;
+	text-align: center;
+	padding: 0.5rem;
+	font-size: 0.85rem;
+	border-radius: 0 1rem 1rem 1rem;
+	display: none;
+}
+
+/* logout container  */
+.logout-container {
+	text-align: center;
+	padding: 2rem 0;
+	font-size: 1.25rem;
+	cursor: pointer;
+	/* color: rgba(122, 122, 122, 0.9); */
+}
+
+/* sidebar options  */
+.info-sidebar-container,
+.notepad-sidebar-container,
+.chat-sidebar-container,
+.savedNotes-sidebar-container {
+	align-items: center;
+	font-size: 1.5rem;
+	padding: 1rem 0;
+	margin: 1rem 0 2rem;
+	position: relative;
+}
+
+.info-icon,
+.notepad-icon,
+.chat-icon,
+.savedNotes-icon {
+	cursor: pointer;
+}
+
+/* tab highlighter  */
+.tab-highlighter {
+	position: absolute;
+	right: 0;
+	top: 0;
+	height: 100%;
+	width: 0.5rem;
+	background: #e74646;
+	animation: tabHighlighter 0.2s ease-in;
+}
+
+@keyframes tabHighlighter {
+	from {
+		width: 0;
+	}
+	to {
+		width: 0.5rem;
+	}
+}
+
+/* media query for above 600px  */
+@media only screen and (min-width: 600px) {
+	.info-sidebar-container,
+	.notepad-sidebar-container,
+	.chat-sidebar-container,
+	.savedNotes-sidebar-container {
+		display: none;
+	}
+}
+
+/* media query for below 600px  */
+@media only screen and (max-width: 600px) {
+	.user-profile-img-sidebar,
+	.user-img-container-sidebar::after {
+		width: 2.5rem;
+		height: 2.5rem;
+	}
+
+	.info-sidebar-container,
+	.notepad-sidebar-container,
+	.chat-sidebar-container,
+	.savedNotes-sidebar-container {
+		font-size: 1.25rem;
+	}
+
+	.username-container {
+		left: 3.85rem;
+	}
+}

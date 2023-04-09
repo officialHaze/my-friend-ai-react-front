@@ -1,0 +1,134 @@
+/* display flexs'  */
+.note-card,
+.note-cards-container,
+.note-title-body-container-wrapper,
+.note-user-img-container,
+.creation-date-delete-btn,
+.search-bar-container-wrapper,
+.search-icon-container {
+	display: flex;
+}
+
+.note-cards-container {
+	flex-direction: column;
+	max-height: 90vh;
+	overflow: auto;
+	border-radius: 2rem;
+	background: linear-gradient(
+		to right bottom,
+		rgba(255, 255, 255, 0.4),
+		rgba(255, 255, 255, 0.7)
+	);
+	backdrop-filter: blur(0.8rem);
+	box-shadow: 7px 7px 20px rgba(122, 122, 122, 0.3);
+}
+
+.note-cards-container > .note-card:last-child > .note-title-body-container-wrapper {
+	border-bottom: none;
+}
+
+.saved-notes-container {
+	padding: 1rem 1rem;
+	width: 50rem;
+}
+
+/* note cards  */
+.note-card {
+	width: 100%;
+	/* background: white; */
+	font-size: 0.85rem;
+	padding: 0 1rem;
+	cursor: pointer;
+}
+
+.note-title-container {
+	padding: 0.25rem 0;
+}
+
+/* note user image  */
+.note-user-img-container {
+	padding: 1rem;
+	align-items: center;
+}
+
+.note-user-img {
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: 100%;
+}
+
+.note-title-body-container-wrapper {
+	width: 100%;
+	padding: 1.5rem 0;
+	border-bottom: 1px solid rgba(122, 122, 122, 0.3);
+	justify-content: space-between;
+}
+
+/* creation date and delete button  */
+.creation-date-delete-btn {
+	font-size: 0.75rem;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+/* search bar  */
+.search-bar-container {
+	padding: 1rem 4rem;
+}
+
+.search-bar-container-wrapper {
+	border-radius: 2rem;
+	overflow: hidden;
+}
+
+.search-bar {
+	border-radius: 0;
+	border: none;
+}
+
+.search-bar:focus {
+	border: none;
+}
+
+.search-icon-container {
+	align-items: center;
+	padding: 0.85rem;
+	background: white;
+}
+
+/* media query  */
+@media only screen and (max-width: 600px) {
+	.saved-notes-container {
+		width: 100%;
+		padding: 1rem 0;
+	}
+
+	.search-bar-container {
+		padding: 1rem;
+	}
+
+	.note-card {
+		padding: 0 0.5rem;
+		font-size: 0.7rem;
+	}
+
+	.note-cards-container {
+		border-radius: 0;
+		box-shadow: none;
+		background: none;
+		backdrop-filter: none;
+	}
+
+	.note-title-body-container-wrapper {
+		padding: 1rem 0;
+	}
+
+	.creation-date-delete-btn {
+		font-size: 0.6rem;
+	}
+
+	.search-bar {
+		font-size: 0.7rem;
+	}
+}

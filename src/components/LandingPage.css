@@ -182,6 +182,31 @@ hr {
 }
 
 /* google logo  */
-.google-logo{
-    font-size: 1.5rem;
+.google-logo {
+	font-size: 1.5rem;
+}
+
+/* media query  */
+@media only screen and (max-width: 600px) {
+	/* main {
+		padding: 0.5rem;
+	} */
+
+	.login-form-container {
+		width: 100%;
+		height: 100%;
+		border-radius: 0;
+	}
+
+	.register-text {
+		padding: 0.5rem 1rem;
+	}
+
+	.login-form > div {
+		width: 90%;
+	}
+
+	.or-text-container {
+		padding: 3rem 1rem;
+	}
 }

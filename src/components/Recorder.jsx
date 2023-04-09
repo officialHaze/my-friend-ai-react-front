@@ -1,30 +1,38 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import TypingDots from "./TypingDots";
+import axiosInstance from "../utils/axiosConfig";
+import Loader from "./Loader";
 import "./recorder.css";
 
 const formData = new FormData();
 const constraint = { audio: true };
 let mediaRecorder;
 let setValueForAIRes;
+let setTokenReceived;
 
 const getTranscriptedData = async (aiResponse, audioLink) => {
+	const access_token = localStorage.getItem("access_token");
 	try {
-		const { data } = await axios({
+		const { data } = await axiosInstance({
 			method: "POST",
-			// url: "http://localhost:8000/api/transcribe-audio/",
-			url: "https://chatai-backend-officialhaze.onrender.com/api/transcribe-audio/",
+			url: "api/transcribe-audio/",
 			data: formData,
+			headers: {
+				Authorization: `Bearer ${access_token}`,
+			},
 		});
 		aiResponse(true, data.detail, audioLink);
 		return "transcription successfull";
 	} catch (err) {
+		localStorage.removeItem("access_token"); //if the server responds with an error, remove the access token from localstorage for security
 		throw err;
 	}
 };
 
-export default function Recorder({ aiResponse, aiSpeaking, isSpeechProcessing }) {
+export default function Recorder({ aiResponse, aiSpeaking, isSpeechProcessing, tokenReceived }) {
 	setValueForAIRes = aiResponse;
+	setTokenReceived = value => {
+		tokenReceived(value);
+	}; //calling the tokenReceived function before directly using it inside the use effect hook
 
 	const [mediaRecorderState, setMediaRecorderState] = useState();
 	const [chunks, setChunks] = useState([]);
@@ -81,6 +89,7 @@ export default function Recorder({ aiResponse, aiSpeaking, isSpeechProcessing })
 					setTranscriptionSuccess(true);
 				})
 				.catch(err => {
+					setTokenReceived(false);
 					console.log(err.message);
 				});
 		}
@@ -107,6 +116,7 @@ export default function Recorder({ aiResponse, aiSpeaking, isSpeechProcessing })
 			setTranscriptionSuccess(false);
 			isSpeechProcessing(true);
 			mediaRecorder.stop();
+			console.log(mediaRecorder.state);
 			setMediaRecorderState(mediaRecorder.state);
 		} else {
 			console.log("mediaRecorder.state is inactive");
@@ -121,7 +131,7 @@ export default function Recorder({ aiResponse, aiSpeaking, isSpeechProcessing })
 					onClick={startRecord}
 				/>
 			) : transcriptionSuccess === false ? (
-				<TypingDots />
+				<Loader />
 			) : (
 				<i
 					className="fa-regular fa-circle-stop"

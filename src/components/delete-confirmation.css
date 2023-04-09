@@ -1,0 +1,67 @@
+.delete-confirm-container {
+	position: absolute;
+	top: 5rem;
+	left: 40%;
+	z-index: 20;
+	background: linear-gradient(to right top, #fa9884, #e74646);
+	color: white;
+	animation: deleteConfirm 2s infinite;
+	border-radius: 1rem;
+}
+
+.delete-confirmation-text {
+	padding: 2rem;
+}
+
+.confirm-btn {
+	padding: 1rem;
+	display: flex;
+	justify-content: flex-end;
+	gap: 0.85rem;
+}
+
+.yes-btn,
+.no-btn {
+	font-size: 0.85rem;
+	border: none;
+}
+
+.yes-btn {
+	background: red;
+	color: white;
+}
+
+.no-btn {
+	background: whitesmoke;
+	color: black;
+}
+
+.no-btn:hover {
+	color: black;
+}
+
+@keyframes deleteConfirm {
+	0% {
+		transform: translateY(0.5rem);
+	}
+	50% {
+		transform: translateY(-0.5rem);
+	}
+	100% {
+		transform: translateY(0.5rem);
+	}
+}
+
+
+/* media query  */
+@media only screen and (max-width: 600px) {
+	.delete-confirm-container{
+		width: 90%;
+		left: 7%;
+	}
+
+	.delete-confirmation-text{
+		padding: 1rem;
+		font-size: 0.85rem;
+	}
+}

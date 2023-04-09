@@ -1,22 +1,52 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { speak } from "../utils/speak";
 import ChatWindow from "./ChatWindow";
-import Footer from "./Footer";
 import Header from "./Header";
 import { postData } from "../utils/postData";
 import Recorder from "./Recorder";
+import Sidebar from "./Sidebar";
+import axiosInstance from "../utils/axiosConfig";
+import Notes from "./Notes";
+import SavedNotes from "./SavedNotes";
+import DeleteConfirmation from "./DeleteConfirmation";
+import AboutApp from "./AboutApp";
+import AboutDev from "./AboutDev";
 import "../App.css";
 
 let userTextsArrayForASession = [];
+let setTokenReceived;
 
-export default function Dashboard() {
+export default function Dashboard({ tokenReceived }) {
 	const [inputVal, setInputVal] = useState("");
 	const [messages, setMessages] = useState([]);
 	const [responses, setResponses] = useState([]);
 	const [stopSpeechEnabled, enableStopSpeech] = useState(false);
 	const [isSpeechProcessing, setIsSpeechProcessing] = useState(false);
+	const [userDetails, setUserDetails] = useState({
+		username: "",
+		profilePic: "",
+	});
+	const [isNotesUpdated, setIsNotesUpdated] = useState(false);
+	const [noteFormData, setNoteFormData] = useState({
+		title: "",
+		body: "",
+	});
+	const [noteDeleteTrigger, setNoteDeleteTrigger] = useState(false);
+	const [activeView, setActiveView] = useState({
+		chat: true,
+		note: false,
+		savedNotes: false,
+		info: false,
+	});
 	const submitBtn = useRef(null);
 	const synth = window.speechSynthesis;
+
+	//screen width
+	const screenWidth = window.innerWidth;
+
+	setTokenReceived = value => {
+		tokenReceived(value);
+	}; //calling the tokenReceived function before directly using it inside the use effect hook
 
 	const disableSubmitBtn = () => {
 		submitBtn.current?.setAttribute("disabled", null);
@@ -72,57 +102,198 @@ export default function Dashboard() {
 			});
 			speak(synth, messageFromAI, disableSubmitBtn, enableSubmitBtn);
 		} catch (err) {
+			tokenReceived(false);
 			console.log(err);
 		}
 	};
 
+	//getting user details once logged in
+	useEffect(() => {
+		const access_token = localStorage.getItem("access_token");
+		const user_login_type = localStorage.getItem("user_login_type");
+		if (access_token && !user_login_type) {
+			axiosInstance
+				.get("api/user/google-details/", {
+					headers: {
+						Authorization: `Bearer ${access_token}`,
+					},
+				})
+				.then(res => {
+					const { data } = res;
+					setUserDetails({
+						username: data.name,
+						profilePic: data.profile_picture,
+					}); //setting the user details
+					localStorage.setItem("info", JSON.stringify(data));
+				})
+				.catch(err => {
+					console.log(err);
+					localStorage.removeItem("access_token");
+					setTokenReceived(false);
+				});
+		} else if (access_token && user_login_type === "on-site-login") {
+			axiosInstance
+				.get("api/user/user-details/", {
+					headers: {
+						Authorization: `Bearer ${access_token}`,
+					},
+				})
+				.then(res => {
+					const { data } = res;
+					setUserDetails({
+						username: data.name,
+						profilePic: data.profile_picture,
+					}); //setting the user details
+					localStorage.setItem("info", JSON.stringify(data));
+				})
+				.catch(err => {
+					console.log(err);
+					localStorage.removeItem("access_token");
+					setTokenReceived(false);
+				});
+		}
+	}, []);
+
+	//check the width of the screen to handle views
+	useEffect(() => {
+		if (screenWidth >= 600) {
+			setActiveView({
+				chat: true,
+				note: true,
+				savedNotes: true,
+				info: true,
+			});
+		}
+	}, [screenWidth]);
+
+	//delete the note with the respective title once user confirms
+	const deleteConfirmed = () => {
+		const access_token = localStorage.getItem("access_token");
+		axiosInstance
+			.delete(`api/user/note/delete/${noteFormData.title}/`, {
+				headers: {
+					Authorization: `Bearer ${access_token}`,
+				},
+			})
+			.then(res => {
+				console.log(res);
+				setIsNotesUpdated(true);
+				setNoteDeleteTrigger(false);
+				setNoteFormData({
+					title: "",
+					body: "",
+				});
+			})
+			.catch(err => {
+				console.log(err);
+				const { status } = err.response;
+				if (status === 401) {
+					localStorage.removeItem("access_token");
+					localStorage.getItem("user_login_type") &&
+						localStorage.removeItem("user_login_type");
+				}
+			});
+	};
+
 	return (
 		<section>
-			<Header />
-			<div className="main">
-				<ChatWindow
-					messages={messages}
-					responses={responses}
+			{noteDeleteTrigger && (
+				<DeleteConfirmation
+					deleteConfirmed={deleteConfirmed}
+					deleteNote={setNoteDeleteTrigger}
 				/>
-				{stopSpeechEnabled && (
-					<div className="stop-speech-button-container">
-						<button
-							onClick={() => {
-								synth.cancel();
-								enableSubmitBtn();
-							}}>
-							<i className="fa-solid fa-stop"></i> Stop speaking
-						</button>
+			)}
+			<Sidebar
+				tokenReceived={tokenReceived}
+				userDetails={userDetails}
+				setActiveView={setActiveView}
+				active={activeView}
+			/>
+			<div className="dashboard">
+				{activeView.chat || activeView.note || activeView.info ? (
+					<div className="chat-board-container">
+						<div className="notes-and-about-container">
+							{activeView.note && (
+								<Notes
+									tokenReceived={tokenReceived}
+									setIsNotesUpdated={setIsNotesUpdated}
+									noteFormData={noteFormData}
+									setNoteFormData={setNoteFormData}
+								/>
+							)}
+							{activeView.info && (
+								<div className="info-container">
+									<AboutApp />
+									<AboutDev />
+								</div>
+							)}
+						</div>
+						{activeView.chat && (
+							<div className="chatheading-chatwindow-container">
+								<Header />
+								<div className="main">
+									<ChatWindow
+										messages={messages}
+										responses={responses}
+										userDetails={userDetails}
+									/>
+									{stopSpeechEnabled && (
+										<div className="stop-speech-button-container">
+											<button
+												onClick={() => {
+													synth.cancel();
+													enableSubmitBtn();
+												}}>
+												<i className="fa-solid fa-stop"></i> Stop speaking
+											</button>
+										</div>
+									)}
+									<div className="chat-form-container">
+										<form onSubmit={handleSubmit}>
+											<textarea
+												value={!isSpeechProcessing ? inputVal : ""}
+												onChange={e => {
+													if (!isSpeechProcessing) {
+														const { value } = e.target;
+														setInputVal(value);
+													}
+												}}
+												rows={1}
+												placeholder="Type a message"
+											/>
+											{inputVal ? (
+												<button
+													className="text-btn"
+													ref={submitBtn}
+													type="submit">
+													<i className="fa-solid fa-paper-plane"></i>
+												</button>
+											) : (
+												<Recorder
+													aiResponse={gettingResponseFromAI}
+													aiSpeaking={stopSpeechEnabled}
+													isSpeechProcessing={setIsSpeechProcessing}
+													tokenReceived={tokenReceived}
+												/>
+											)}
+										</form>
+									</div>
+								</div>
+							</div>
+						)}
 					</div>
-				)}
-				<form onSubmit={handleSubmit}>
-					<textarea
-						value={!isSpeechProcessing ? inputVal : ""}
-						onChange={e => {
-							if (!isSpeechProcessing) {
-								const { value } = e.target;
-								setInputVal(value);
-							}
-						}}
+				) : null}
+				{activeView.savedNotes && (
+					<SavedNotes
+						setActiveView={setActiveView}
+						isNotesUpdated={isNotesUpdated}
+						setIsNotesUpdated={setIsNotesUpdated}
+						tokenReceived={tokenReceived}
+						editNote={setNoteFormData}
+						deleteNoteTrigger={setNoteDeleteTrigger}
 					/>
-					{inputVal ? (
-						<button
-							ref={submitBtn}
-							type="submit">
-							<i
-								className="fa-solid fa-paper-plane"
-								style={{ color: "#30c1d5" }}></i>
-						</button>
-					) : (
-						<Recorder
-							aiResponse={gettingResponseFromAI}
-							aiSpeaking={stopSpeechEnabled}
-							isSpeechProcessing={setIsSpeechProcessing}
-						/>
-					)}
-				</form>
+				)}
 			</div>
-			<Footer />
 		</section>
 	);
 }

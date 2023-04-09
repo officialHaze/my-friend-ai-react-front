@@ -1,0 +1,82 @@
+.notes-container {
+	width: 100%;
+	padding: 0 2rem;
+}
+
+/* input  */
+.title {
+	border-radius: 0;
+	outline: none;
+	border: none;
+	font-weight: bold;
+	font-size: 1rem;
+	background: none;
+}
+
+.title:focus {
+	border: none;
+}
+
+/* textarea  */
+.body {
+	border-radius: 0;
+	padding-left: 0.85rem;
+	padding-right: 0.85rem;
+	height: 100%;
+	overflow: auto;
+	background: none;
+}
+
+.title,
+.body {
+	padding: 0.85rem 1.5rem;
+	/* background: #ffdd83; */
+}
+
+/* heading  */
+.notes-heading {
+	text-align: center;
+	padding: 1rem;
+	font-family: "Dancing Script", cursive;
+}
+
+.notes-wrapper {
+	border-radius: 2rem;
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+	background: linear-gradient(
+		to right bottom,
+		rgba(255, 255, 255, 0.4),
+		rgba(255, 255, 255, 0.7)
+	);
+	backdrop-filter: blur(0.8rem);
+	box-shadow: 7px 7px 20px rgba(122, 122, 122, 0.3);
+}
+
+/* add note button  */
+.add-note-btn {
+	position: absolute;
+	bottom: 2rem;
+	right: 2rem;
+	border-radius: 100%;
+	width: 3rem;
+	height: 3rem;
+	border: none;
+	background: #f7c04a;
+	box-shadow: 4px 4px 30px #f7c04aa9;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.5rem;
+	color: white;
+}
+
+/* media query  */
+@media only screen and (max-width: 600px) {
+	.notes-container {
+		height: 100vh;
+		padding: 1rem 0.25rem;
+	}
+
+}

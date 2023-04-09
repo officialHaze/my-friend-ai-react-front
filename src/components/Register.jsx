@@ -77,25 +77,27 @@ export default function Register() {
 				<form
 					onSubmit={handleSubmit}
 					className="register-form">
-					<div>
-						<input
-							onChange={handleChange}
-							type="text"
-							name="fname"
-							placeholder="First Name"
-							aria-placeholder="first name"
-							value={formData.first_name}
-						/>
-					</div>
-					<div>
-						<input
-							onChange={handleChange}
-							type="text"
-							name="lname"
-							placeholder="Last Name"
-							aria-placeholder="last name"
-							value={formData.last_name}
-						/>
+					<div className="name-credentials">
+						<div>
+							<input
+								onChange={handleChange}
+								type="text"
+								name="fname"
+								placeholder="First Name"
+								aria-placeholder="first name"
+								value={formData.first_name}
+							/>
+						</div>
+						<div>
+							<input
+								onChange={handleChange}
+								type="text"
+								name="lname"
+								placeholder="Last Name"
+								aria-placeholder="last name"
+								value={formData.last_name}
+							/>
+						</div>
 					</div>
 					<div>
 						<input

@@ -1,17 +1,21 @@
-import axios from "axios";
+import axiosInstance from "./axiosConfig";
 
 export async function postData(userText) {
+	const access_token = localStorage.getItem("access_token");
 	try {
-		const res = await axios({
+		const res = await axiosInstance({
 			method: "POST",
-			// url: "http://localhost:8000/api/ai-response/",
-			url: "https://chatai-backend-officialhaze.onrender.com/api/ai-response/",
+			url: "api/ai-response/",
 			data: {
 				message: userText,
+			},
+			headers: {
+				Authorization: `Bearer ${access_token}`,
 			},
 		});
 		return res.data.message;
 	} catch (err) {
+		localStorage.removeItem("access_token");
 		throw err;
 	}
 }

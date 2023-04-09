@@ -1,19 +1,46 @@
 .record-button-holder {
 	display: flex;
 	align-items: center;
-	border-top: 1px solid black;
-	border-right: 1px solid black;
-	border-bottom: 1px solid black;
-	padding: 0.5rem;
+	justify-content: center;
+	/* border-radius: 100%; */
+	color: white;
 }
 
 .fa-microphone,
 .fa-circle-stop {
 	font-size: 1.5rem;
 	cursor: pointer;
-	padding: 0.5rem;
+	padding: 0.7rem 1rem;
+	background: #f70776;
+	border-radius: 100%;
 }
 
 .fa-circle-stop {
-	color: rgb(206, 1, 1);
+	background: none;
+}
+
+.fa-circle-stop {
+	color: red;
+	animation: stopRecord 1s infinite;
+}
+
+@keyframes stopRecord {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.25);
+	}
+	0% {
+		transform: scale(1);
+	}
+}
+
+
+/* media query  */
+@media only screen and (max-width: 600px) {
+	.fa-microphone{
+		padding: 0.5rem 0.8rem;
+		font-size: 1.25rem;
+	}
 }

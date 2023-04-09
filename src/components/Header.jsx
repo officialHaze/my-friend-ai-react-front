@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../logo.png";
+import logo from "../robot-logo.jpg";
 import "./header.css";
 
 function Header() {
@@ -9,8 +9,9 @@ function Header() {
 				className="logo"
 				src={logo}
 				alt="speakAI-logo"
+				style={{ borderRadius: "50%"}}
 			/>
-			<h1>SpeakAI</h1>
+			<h3>My Friend AI</h3>
 		</div>
 	);
 }

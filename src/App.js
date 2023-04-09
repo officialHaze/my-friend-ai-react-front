@@ -3,17 +3,19 @@ import Dashboard from "./components/Dashboard";
 import LandingPage from "./components/LandingPage";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import axiosInstance from "./utils/axiosConfig";
 import Process from "./env";
 import Register from "./components/Register";
+import EstablishConnection from "./components/EstablishConnection";
 
-const process = new Process();
+// const process = new Process();
 
 export default function App() {
 	const [serverConnectionEstablished, setServerConnectionEstablished] = useState(false);
 	const [tokenReceived, setTokenReceived] = useState(false);
 
 	useEffect(() => {
-		setTokenReceived(false); //setting the token received state to false everytime the components are rendered
+		// setTokenReceived(false); //setting the token received state to false everytime the components are rendered
 		axios
 			.get(process.env.SERVER_CONNECTION_URL)
 			.then(res => {
@@ -32,6 +34,25 @@ export default function App() {
 
 		if (access_token && refresh_token) {
 			setTokenReceived(true);
+		} else if (refresh_token) {
+			axiosInstance
+				.post("auth/token", {
+					client_id: process.env.CLIENT_ID,
+					client_secret: process.env.CLIENT_SECRET,
+					grant_type: "refresh_token",
+					refresh_token: refresh_token,
+				})
+				.then(res => {
+					const { data } = res;
+					localStorage.setItem("access_token", data.access_token);
+					localStorage.setItem("refresh_token", data.refresh_token);
+					setTokenReceived(true);
+				})
+				.catch(err => {
+					localStorage.removeItem("refresh_token");
+					localStorage.removeItem("user_login_type");
+					console.log(err);
+				});
 		}
 	}, [tokenReceived]);
 
@@ -40,7 +61,11 @@ export default function App() {
 			<Route
 				path="/"
 				element={
-					tokenReceived ? <Dashboard /> : <LandingPage tokenReceived={setTokenReceived} />
+					tokenReceived ? (
+						<Dashboard tokenReceived={setTokenReceived} />
+					) : (
+						<LandingPage tokenReceived={setTokenReceived} />
+					)
 				}
 			/>
 			<Route
@@ -49,8 +74,6 @@ export default function App() {
 			/>
 		</Routes>
 	) : (
-		<div>
-			Establishing a secure connection with the server, please wait, this might take some time
-		</div>
+		<EstablishConnection />
 	);
 }
