@@ -17,7 +17,7 @@ export default function App() {
 
 	useEffect(() => {
 		axios
-			.get(process.env.SERVER_CONNECTION_URL)
+			.get("https://chatai-backend-officialhaze.onrender.com/api/server-connection/")
 			.then(res => {
 				console.log(res);
 				setServerConnectionEstablished(true);
