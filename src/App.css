@@ -9,11 +9,10 @@ form,
 }
 
 section {
-	background: url("./dashboard-bg-3.png");
+	background: url("./dashboard-bg-4.png");
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	/* background-attachment: fixed; */
 }
 
 .main {
@@ -150,6 +149,10 @@ form {
 		min-height: 100vh;
 		justify-content: center;
 		align-items: center;
+	}
+
+	.notes-and-about-container {
+		flex-direction: column;
 	}
 
 	.chatheading-chatwindow-container {

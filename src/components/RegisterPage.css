@@ -56,7 +56,7 @@ input:focus {
 }
 
 input::placeholder {
-	color: rgba(128, 128, 128, 0.712);
+	color: rgba(255, 255, 255, 0.623);
 }
 
 .register-form > div {
@@ -64,11 +64,11 @@ input::placeholder {
 }
 
 /* login form heading  */
-.heading {
+/* .heading {
 	padding: 0.5rem;
 	color: white;
 	background: linear-gradient(to right top, #f70776, #f06292);
-}
+} */
 
 /* submit button  */
 .register-button-container {

@@ -13,6 +13,10 @@ main {
 	flex-direction: column;
 	gap: 2rem;
 	height: 100vh;
+	background: url("../login-page-bg.jpg");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 .login-form-container,
@@ -28,9 +32,16 @@ main {
 
 .login-form-container {
 	width: 30%;
-	border: 1px solid rgba(122, 122, 122, 0.5);
+	border: 1px solid rgba(255, 255, 255, 0.5);
 	border-radius: 0.5rem;
 	overflow: hidden;
+	background: linear-gradient(
+		to right bottom,
+		rgba(255, 255, 255, 0.048),
+		rgba(255, 255, 255, 0.075)
+	);
+	backdrop-filter: blur(0.5rem);
+	box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
 }
 
 /* input elements  */
@@ -42,6 +53,7 @@ input {
 	font-size: 0.85rem;
 	outline: none;
 	transition: 0.6s;
+	background: rgba(255, 255, 255, 0.123);
 }
 
 input:focus {
@@ -49,7 +61,7 @@ input:focus {
 }
 
 input::placeholder {
-	color: rgba(128, 128, 128, 0.712);
+	color: rgba(255, 255, 255, 0.623);
 }
 
 .login-form > div {
@@ -60,7 +72,7 @@ input::placeholder {
 .heading {
 	padding: 0.5rem;
 	color: white;
-	background: linear-gradient(to right top, #f70776, #f06292);
+	background: linear-gradient(to right top, #f7077786, #f062916e);
 }
 
 /* submit button  */
@@ -96,7 +108,7 @@ button {
 	width: 100%;
 	height: 0;
 	background: linear-gradient(to right top, #f70776, #f06292);
-	z-index: -1;
+	/* z-index: -1; */
 }
 
 button:hover + .button-fill {
@@ -133,8 +145,13 @@ a {
 
 .or-text {
 	position: absolute;
-	bottom: 2.65rem;
-	background: white;
+	bottom: 2.4rem;
+	/* background: white; */
+	background: linear-gradient(
+		to right bottom,
+		rgba(255, 255, 255, 0.048),
+		rgba(255, 255, 255, 0.075)
+	);
 	left: 46%;
 	padding: 0 1rem;
 	color: rgba(128, 128, 128, 0.658);
@@ -161,7 +178,7 @@ hr {
 	padding: 0.85rem;
 	border-radius: 0.35rem;
 	border: 1px solid #19376d;
-	color: black;
+	color: white;
 	/* background: #19376d; */
 	width: 100%;
 	align-items: center;
@@ -189,13 +206,12 @@ hr {
 }
 
 /* login error box  */
-.login-error-msg-container{
+.login-error-msg-container {
 	padding: 2rem 1rem;
 	background: red;
 	color: white;
 	border-radius: 1rem;
 }
-
 
 /* media query  */
 @media only screen and (max-width: 600px) {
@@ -221,8 +237,18 @@ hr {
 		padding: 3rem 1rem;
 	}
 
-	.or-text{
+	.or-text {
 		left: 44%;
 		bottom: 2.4rem;
+	}
+
+	.google-login-btn {
+		background: #19376d;
+		color: white;
+	}
+
+	.login-btn {
+		background: #f70776;
+		color: white;
 	}
 }

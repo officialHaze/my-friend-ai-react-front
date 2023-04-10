@@ -115,7 +115,7 @@ export default function LandingPage({ tokenReceived }) {
 					</div>
 					{!isloginInitiated ? (
 						<div className="button-container">
-							<button>Login</button>
+							<button className="login-btn">Login</button>
 							<div className="button-fill" />
 						</div>
 					) : (

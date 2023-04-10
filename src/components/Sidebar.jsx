@@ -94,7 +94,7 @@ export default function Sidebar({ userDetails, tokenReceived, setActiveView, act
 				<div>
 					<div className="user-img-container-sidebar">
 						<img
-							className="user-profile-img-sidebar"
+							className="user-profile-img"
 							src={userDetails.profilePic}
 							alt="user profle"
 						/>

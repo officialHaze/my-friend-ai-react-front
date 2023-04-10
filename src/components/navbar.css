@@ -1,0 +1,88 @@
+.hide-navbar,
+.display-navbar {
+	width: 100%;
+	padding: 0.5rem;
+	position: absolute;
+	top: 0;
+	background: black;
+	backdrop-filter: blur(0.25rem);
+	box-shadow: 0 14px 25px 3px rgba(0, 0, 0, 0.3);
+	z-index: 20;
+	transition: transform 0.5s;
+}
+
+/* display flexs'  */
+.navbar-controller,
+.navbar-contents-wrapper,
+.img-container,
+.navbar-logo {
+	display: flex;
+}
+
+.navbar-controller,
+.hide,
+.show {
+	width: 5rem;
+	height: 1.5rem;
+	border-radius: 0 0 0.5rem 0.5rem;
+	background: rgba(0, 0, 0, 0.836);
+	/* border: 1px solid white; */
+	border-top: 0;
+	position: absolute;
+	bottom: -1.5rem;
+	left: 51%;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+
+/* hide the navbar  */
+.hide-navbar {
+	transform: translateY(-4.5rem);
+	box-shadow: none;
+}
+
+/* display the navbar  */
+.display-navbar {
+	transform: translateY(0);
+}
+
+.navbar-contents-wrapper {
+	padding: 0 3rem;
+	justify-content: space-between;
+}
+
+/* user image  */
+.img-container {
+	align-items: center;
+	cursor: pointer;
+}
+
+/* popup  */
+.pop-up {
+	position: absolute;
+	bottom: -7rem;
+	right: 5.5rem;
+	background: #343434;
+	display: none;
+	padding: 1rem;
+	border-radius: 2rem 0 2rem 2rem;
+	width: 7rem;
+}
+
+.pop-up > div {
+	margin: 1rem 0;
+	text-align: center;
+}
+
+.img-container:hover + .pop-up,
+.pop-up:hover {
+	display: block;
+}
+
+/* navbar logo  */
+.navbar-logo {
+	font-family: "Dancing Script", cursive;
+	align-items: center;
+	font-size: 0.9rem;
+}

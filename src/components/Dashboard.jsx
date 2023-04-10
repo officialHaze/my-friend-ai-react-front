@@ -11,6 +11,7 @@ import SavedNotes from "./SavedNotes";
 import DeleteConfirmation from "./DeleteConfirmation";
 import AboutApp from "./AboutApp";
 import AboutDev from "./AboutDev";
+import Navbar from "./Navbar";
 import "../App.css";
 
 let userTextsArrayForASession = [];
@@ -214,105 +215,112 @@ export default function Dashboard({ tokenReceived }) {
 	}, []);
 
 	return (
-		<section>
-			{noteDeleteTrigger && (
-				<DeleteConfirmation
-					deleteConfirmed={deleteConfirmed}
-					deleteNote={setNoteDeleteTrigger}
-				/>
-			)}
-			<Sidebar
+		<>
+			<Navbar
 				tokenReceived={tokenReceived}
 				userDetails={userDetails}
-				setActiveView={setActiveView}
-				active={activeView}
 			/>
-			<div className="dashboard">
-				{activeView.chat || activeView.note || activeView.info ? (
-					<div className="chat-board-container">
-						<div className="notes-and-about-container">
-							{activeView.note && (
-								<Notes
-									tokenReceived={tokenReceived}
-									setIsNotesUpdated={setIsNotesUpdated}
-									noteFormData={noteFormData}
-									setNoteFormData={setNoteFormData}
-								/>
-							)}
-							{activeView.info && (
-								<div className="info-container">
-									<AboutApp />
-									<AboutDev />
+			<section>
+				{noteDeleteTrigger && (
+					<DeleteConfirmation
+						deleteConfirmed={deleteConfirmed}
+						deleteNote={setNoteDeleteTrigger}
+					/>
+				)}
+				<Sidebar
+					tokenReceived={tokenReceived}
+					userDetails={userDetails}
+					setActiveView={setActiveView}
+					active={activeView}
+				/>
+				<div className="dashboard">
+					{activeView.chat || activeView.note || activeView.info ? (
+						<div className="chat-board-container">
+							<div className="notes-and-about-container">
+								{activeView.note && (
+									<Notes
+										tokenReceived={tokenReceived}
+										setIsNotesUpdated={setIsNotesUpdated}
+										noteFormData={noteFormData}
+										setNoteFormData={setNoteFormData}
+									/>
+								)}
+								{activeView.info && (
+									<div className="info-container">
+										<AboutApp />
+										<AboutDev />
+									</div>
+								)}
+							</div>
+							{activeView.chat && (
+								<div className="chatheading-chatwindow-container">
+									<Header />
+									<div className="main">
+										<ChatWindow
+											messages={messages}
+											responses={responses}
+											userDetails={userDetails}
+										/>
+										{stopSpeechEnabled && (
+											<div className="stop-speech-button-container">
+												<button
+													onClick={() => {
+														synth.cancel();
+														enableSubmitBtn();
+													}}>
+													<i className="fa-solid fa-stop"></i> Stop
+													speaking
+												</button>
+											</div>
+										)}
+										<div className="chat-form-container">
+											<form onSubmit={handleSubmit}>
+												<textarea
+													value={!isSpeechProcessing ? inputVal : ""}
+													onChange={e => {
+														if (!isSpeechProcessing) {
+															const { value } = e.target;
+															setInputVal(value);
+														}
+													}}
+													rows={1}
+													placeholder="Type a message"
+												/>
+												{inputVal || !hasMicrophoneAccess ? (
+													<button
+														className="text-btn"
+														ref={submitBtn}
+														type="submit">
+														<i className="fa-solid fa-paper-plane"></i>
+													</button>
+												) : (
+													<Recorder
+														aiResponse={gettingResponseFromAI}
+														aiSpeaking={stopSpeechEnabled}
+														isSpeechProcessing={setIsSpeechProcessing}
+														tokenReceived={tokenReceived}
+														hasMicrophoneAccess={setHasMicrophoneAccess}
+													/>
+												)}
+											</form>
+										</div>
+									</div>
 								</div>
 							)}
 						</div>
-						{activeView.chat && (
-							<div className="chatheading-chatwindow-container">
-								<Header />
-								<div className="main">
-									<ChatWindow
-										messages={messages}
-										responses={responses}
-										userDetails={userDetails}
-									/>
-									{stopSpeechEnabled && (
-										<div className="stop-speech-button-container">
-											<button
-												onClick={() => {
-													synth.cancel();
-													enableSubmitBtn();
-												}}>
-												<i className="fa-solid fa-stop"></i> Stop speaking
-											</button>
-										</div>
-									)}
-									<div className="chat-form-container">
-										<form onSubmit={handleSubmit}>
-											<textarea
-												value={!isSpeechProcessing ? inputVal : ""}
-												onChange={e => {
-													if (!isSpeechProcessing) {
-														const { value } = e.target;
-														setInputVal(value);
-													}
-												}}
-												rows={1}
-												placeholder="Type a message"
-											/>
-											{inputVal || !hasMicrophoneAccess ? (
-												<button
-													className="text-btn"
-													ref={submitBtn}
-													type="submit">
-													<i className="fa-solid fa-paper-plane"></i>
-												</button>
-											) : (
-												<Recorder
-													aiResponse={gettingResponseFromAI}
-													aiSpeaking={stopSpeechEnabled}
-													isSpeechProcessing={setIsSpeechProcessing}
-													tokenReceived={tokenReceived}
-													hasMicrophoneAccess={setHasMicrophoneAccess}
-												/>
-											)}
-										</form>
-									</div>
-								</div>
-							</div>
-						)}
-					</div>
-				) : null}
-				{activeView.savedNotes && (
-					<SavedNotes
-						setActiveView={setActiveView}
-						isNotesUpdated={isNotesUpdated}
-						setIsNotesUpdated={setIsNotesUpdated}
-						tokenReceived={tokenReceived}
-						editNote={setNoteFormData}
-						deleteNoteTrigger={setNoteDeleteTrigger}
-					/>
-				)}
-			</div>
-		</section>
+					) : null}
+					{activeView.savedNotes && (
+						<SavedNotes
+							setActiveView={setActiveView}
+							isNotesUpdated={isNotesUpdated}
+							setIsNotesUpdated={setIsNotesUpdated}
+							tokenReceived={tokenReceived}
+							editNote={setNoteFormData}
+							deleteNoteTrigger={setNoteDeleteTrigger}
+						/>
+					)}
+				</div>
+			</section>
+		</>
 	);
 }

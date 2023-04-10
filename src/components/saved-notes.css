@@ -88,8 +88,12 @@
 	border: none;
 }
 
+.search-bar::placeholder {
+	color: rgba(255, 255, 255, 0.699);
+}
+
 .search-bar:focus {
-	border: none;
+	border: 0
 }
 
 .search-icon-container {
