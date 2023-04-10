@@ -47,11 +47,12 @@
 	position: relative;
 	background: linear-gradient(
 		to right bottom,
-		rgba(255, 255, 255, 0.4),
-		rgba(255, 255, 255, 0.7)
+		rgba(255, 255, 255, 0.048),
+		rgba(255, 255, 255, 0.075)
 	);
-	backdrop-filter: blur(0.8rem);
-	box-shadow: 7px 7px 20px rgba(122, 122, 122, 0.3);
+	backdrop-filter: blur(0.5rem);
+	box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.3);
+	/* border: 1px solid rgba(255, 255, 255, 0.623); */
 }
 
 /* add note button  */
@@ -64,7 +65,7 @@
 	height: 3rem;
 	border: none;
 	background: #f7c04a;
-	box-shadow: 4px 4px 30px #f7c04aa9;
+	box-shadow: 4px 4px 30px 4px #f7c04aa9;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -78,5 +79,4 @@
 		height: 100vh;
 		padding: 1rem 0.25rem;
 	}
-
 }

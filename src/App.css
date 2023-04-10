@@ -9,7 +9,11 @@ form,
 }
 
 section {
-	background: #eef2ff;
+	background: url("./dashboard-bg-3.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	/* background-attachment: fixed; */
 }
 
 .main {
@@ -19,11 +23,11 @@ section {
 	overflow: hidden;
 	background: linear-gradient(
 		to right bottom,
-		rgba(255, 255, 255, 0.4),
-		rgba(255, 255, 255, 0.7)
+		rgba(255, 255, 255, 0.048),
+		rgba(255, 255, 255, 0.075)
 	);
-	backdrop-filter: blur(0.8rem);
-	box-shadow: 7px 7px 20px rgba(122, 122, 122, 0.3);
+	backdrop-filter: blur(10px);
+	box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.3);
 }
 
 .chat-board-container {
@@ -43,7 +47,7 @@ textarea {
 	resize: none;
 	outline: none;
 	border: none;
-	background: #eef2ff;
+	background: rgba(255, 255, 255, 0.164);
 	border-radius: 10rem;
 }
 
@@ -51,6 +55,12 @@ textarea {
 textarea,
 input {
 	font-family: "Poppins", sans-serif;
+	color: white;
+}
+
+textarea::placeholder,
+input::placeholder {
+	color: rgba(255, 255, 255, 0.753);
 }
 
 form {
@@ -71,6 +81,7 @@ form {
 	border: none;
 	cursor: pointer;
 	background: #f70776;
+	box-shadow: 4px 4px 30px 5px #f70777bb;
 	color: white;
 }
 
@@ -111,15 +122,15 @@ form {
 .about-body {
 	background: linear-gradient(
 		to right bottom,
-		rgba(255, 255, 255, 0.4),
-		rgba(255, 255, 255, 0.7)
+		rgba(255, 255, 255, 0.048),
+		rgba(255, 255, 255, 0.075)
 	);
-	backdrop-filter: blur(0.8rem);
+	backdrop-filter: blur(0.5rem);
 	border-radius: 1.5rem;
 	line-height: 2;
 	font-size: 0.9rem;
 	text-align: justify;
-	box-shadow: 7px 7px 20px rgba(122, 122, 122, 0.3);
+	box-shadow: 0 14px 35px rgba(0, 0, 0, 0.3);
 }
 
 .about-body > p {
@@ -166,7 +177,7 @@ form {
 	}
 
 	textarea {
-		font-size: 0.7rem;
+		font-size: 0.85rem;
 	}
 
 	.chat-form-container {

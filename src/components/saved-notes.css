@@ -16,11 +16,11 @@
 	border-radius: 2rem;
 	background: linear-gradient(
 		to right bottom,
-		rgba(255, 255, 255, 0.4),
-		rgba(255, 255, 255, 0.7)
+		rgba(255, 255, 255, 0.048),
+		rgba(255, 255, 255, 0.075)
 	);
-	backdrop-filter: blur(0.8rem);
-	box-shadow: 7px 7px 20px rgba(122, 122, 122, 0.3);
+	backdrop-filter: blur(0.5rem);
+	box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.3);
 }
 
 .note-cards-container > .note-card:last-child > .note-title-body-container-wrapper {
@@ -84,6 +84,7 @@
 
 .search-bar {
 	border-radius: 0;
+	background: rgba(255, 255, 255, 0.171);
 	border: none;
 }
 
@@ -94,7 +95,8 @@
 .search-icon-container {
 	align-items: center;
 	padding: 0.85rem;
-	background: white;
+	background: rgba(255, 255, 255, 0.171);
+	backdrop-filter: blur(0.5rem);
 }
 
 /* media query  */

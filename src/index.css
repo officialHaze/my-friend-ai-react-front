@@ -8,6 +8,7 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	font-family: "Poppins", sans-serif;
+	color: rgba(255, 255, 255, 0.842);
 }
 
 code {

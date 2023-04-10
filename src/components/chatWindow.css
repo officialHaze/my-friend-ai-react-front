@@ -3,12 +3,15 @@
 	height: 55vh;
 	overflow: auto;
 	font-size: 0.85rem;
+	position: relative;
 }
 
 .msg-container,
 .ai-msg-container {
 	padding: 1rem;
-	background: #f7c8e0;
+	background: #f7c8e05d;
+	backdrop-filter: blur(0.5rem);
+	box-shadow: 7px 0 20px rgba(0, 0, 0, 0.3);
 	max-width: 30rem;
 }
 
@@ -17,7 +20,7 @@
 }
 
 .ai-msg-container {
-	background: #eef2ff;
+	background: #eef2ff5d;
 	border-radius: 0 2rem 2rem 2rem;
 }
 
