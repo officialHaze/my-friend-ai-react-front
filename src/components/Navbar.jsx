@@ -52,7 +52,7 @@ export default function Navbar({ userDetails, tokenReceived }) {
 					<div className="img-container">
 						<img
 							className="user-profile-img navbar-user-img"
-							style={{ width: "3.5rem", height: "3.5rem" }}
+							style={{ width: "3.25rem", height: "3.25rem" }}
 							src={userDetails.profilePic}
 							alt="user"
 						/>

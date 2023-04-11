@@ -1,5 +1,6 @@
 import "./notes.css";
 import axiosInstance from "../utils/axiosConfig";
+import nProgress from "nprogress";
 
 export default function Notes({ tokenReceived, setIsNotesUpdated, noteFormData, setNoteFormData }) {
 	const handleChange = e => {
@@ -29,8 +30,9 @@ export default function Notes({ tokenReceived, setIsNotesUpdated, noteFormData, 
 
 	const handleNoteCreateAndEdit = async () => {
 		const access_token = localStorage.getItem("access_token");
+		nProgress.start();
 		try {
-			const res = await axiosInstance({
+			await axiosInstance({
 				method: "POST",
 				url: "api/user/note/create-update/",
 				data: noteFormData,
@@ -38,8 +40,8 @@ export default function Notes({ tokenReceived, setIsNotesUpdated, noteFormData, 
 					Authorization: `Bearer ${access_token}`,
 				},
 			});
-			console.log(res);
 			setIsNotesUpdated(true);
+			nProgress.done();
 		} catch (err) {
 			const { status } = err.response;
 			console.log(status);
@@ -47,6 +49,7 @@ export default function Notes({ tokenReceived, setIsNotesUpdated, noteFormData, 
 				localStorage.removeItem("access_token");
 				tokenReceived(false);
 			}
+			nProgress.done();
 		}
 		setNoteFormData({
 			title: "",

@@ -12,6 +12,8 @@ import DeleteConfirmation from "./DeleteConfirmation";
 import AboutApp from "./AboutApp";
 import AboutDev from "./AboutDev";
 import Navbar from "./Navbar";
+import nProgress from "nprogress";
+import "./nprogress.css";
 import "../App.css";
 
 let userTextsArrayForASession = [];
@@ -176,6 +178,7 @@ export default function Dashboard({ tokenReceived }) {
 	//delete the note with the respective title once user confirms
 	const deleteConfirmed = () => {
 		const access_token = localStorage.getItem("access_token");
+		nProgress.start();
 		axiosInstance
 			.delete(`api/user/note/delete/${noteFormData.title}/`, {
 				headers: {
@@ -190,6 +193,7 @@ export default function Dashboard({ tokenReceived }) {
 					title: "",
 					body: "",
 				});
+				nProgress.done();
 			})
 			.catch(err => {
 				console.log(err);
@@ -199,6 +203,7 @@ export default function Dashboard({ tokenReceived }) {
 					localStorage.getItem("user_login_type") &&
 						localStorage.removeItem("user_login_type");
 				}
+				nProgress.done();
 			});
 	};
 

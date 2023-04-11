@@ -35,7 +35,6 @@ export default function SavedNotes({
 				},
 			})
 			.then(res => {
-				console.log(res);
 				const { data } = res;
 				setNoteList(data);
 			})

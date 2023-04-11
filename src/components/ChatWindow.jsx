@@ -43,14 +43,14 @@ export default function ChatWindow({ messages, responses, userDetails }) {
 		setRetry(false);
 	}, [messages, responses]);
 
-	//wait for 20seconds before making the error state true and giving out the retry prompt
+	//wait for 27seconds before making the error state true and giving out the retry prompt
 	useEffect(() => {
 		setTimeout(() => {
 			if (responses.length < messages.length) {
 				setError(true);
 				setRetry(true);
 			}
-		}, 20000);
+		}, 27000);
 	}, [messages, responses]);
 
 	//only if error is true start the retry counter and keep reducing the counter value and updating the retry counter hook every sec
@@ -149,10 +149,10 @@ export default function ChatWindow({ messages, responses, userDetails }) {
 									<div className="ai-chat-bubble">
 										<div className="ai-msg-container">
 											{errorInRes ? (
-												<p style={{ color: "red" }}>
+												<p style={{ color: "#FA9884" }}>
 													{retry
-														? `Error getting response, Retrying, please wait (${retryCounter})`
-														: "There was an error from the server while getting a response! Refreshing the page might sometimes solve the problem. If it dosen't please check back after sometime. Sorry for the inconvenience."}
+														? `Oh no ${userDetails.username} 😲! There was an error while getting a response from the server! Retrying, please wait (${retryCounter})`
+														: "It feels like the server is taking a nap 😤! Refreshing the page might sometimes solve the problem. If it dosen't, please check back after sometime. Sorry for the inconvenience friend. 🙁"}
 												</p>
 											) : (
 												<TypingDots />

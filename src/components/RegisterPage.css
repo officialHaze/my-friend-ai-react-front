@@ -35,9 +35,16 @@ main {
 
 .register-form-container {
 	width: 30%;
-	border: 1px solid rgba(122, 122, 122, 0.5);
+	border: 1px solid rgba(255, 255, 255, 0.5);
 	border-radius: 0.5rem;
 	overflow: hidden;
+	background: linear-gradient(
+		to right bottom,
+		rgba(255, 255, 255, 0.048),
+		rgba(255, 255, 255, 0.075)
+	);
+	backdrop-filter: blur(0.5rem);
+	box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
 }
 
 /* input elements  */
@@ -112,6 +119,27 @@ input::placeholder {
 	color: white;
 }
 
+/* registration error box  */
+.registration-error-msg-container,
+.account-created-msg-container {
+	text-align: center;
+	position: absolute;
+	left: 38%;
+	top: 2rem;
+	padding: 2rem 1rem;
+	background: rgba(255, 0, 0, 0.747);
+	backdrop-filter: blur(0.5rem);
+	color: white;
+	border-radius: 1rem;
+	width: 30rem;
+	z-index: 10;
+}
+
+.account-created-msg-container {
+	background: rgba(172, 255, 47, 0.76);
+	color: black;
+}
+
 /* media query  */
 @media only screen and (max-width: 600px) {
 	/* main {
@@ -126,5 +154,10 @@ input::placeholder {
 
 	.register-form > div {
 		width: 90%;
+	}
+
+	.registration-error-msg-container {
+		width: 95%;
+		left: 2%;
 	}
 }

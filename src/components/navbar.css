@@ -38,7 +38,7 @@
 
 /* hide the navbar  */
 .hide-navbar {
-	transform: translateY(-4.5rem);
+	transform: translateY(-4.35rem);
 	box-shadow: none;
 }
 
@@ -85,4 +85,11 @@
 	font-family: "Dancing Script", cursive;
 	align-items: center;
 	font-size: 0.9rem;
+}
+
+/* media query  */
+@media only screen and (max-width: 600px) {
+	.navbar-container {
+		display: none;
+	}
 }

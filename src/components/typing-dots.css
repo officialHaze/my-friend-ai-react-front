@@ -9,7 +9,7 @@
 	width: 0.5rem;
 	height: 0.5rem;
 	border-radius: 50%;
-	background: rgba(122, 122, 122, 0.8);
+	background: rgba(255, 255, 255, 0.9);
 	animation: typingDot 1s infinite;
 }
 
