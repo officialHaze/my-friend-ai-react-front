@@ -112,6 +112,10 @@ export default function Dashboard({ tokenReceived }) {
 			console.log(status);
 			if (status === 401) {
 				tokenReceived(false);
+			} else {
+				alert(
+					"There was a fatal error in the server, sorry for the inconvenience. Please reload the page or visit after sometime.",
+				);
 			}
 		}
 	};
