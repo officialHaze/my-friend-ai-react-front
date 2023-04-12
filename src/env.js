@@ -1,10 +1,10 @@
 const baseUrl = process.env.REACT_APP_CONNECTION_ESTABLISH_URL_PROD;
 
 const prod_client_id = process.env.REACT_APP_DJANGO_APP_PROD_CLIENT_ID;
-const dev_client_id = process.env.REACT_APP_DJANGO_APP_DEV_CLIENT_ID;
+// const dev_client_id = process.env.REACT_APP_DJANGO_APP_DEV_CLIENT_ID;
 
 const prod_client_secret = process.env.REACT_APP_DJANGO_APP_PROD_CLIENT_SECRET;
-const dev_client_secret = process.env.REACT_APP_DJANGO_APP_DEV_CLIENT_SECRET;
+// const dev_client_secret = process.env.REACT_APP_DJANGO_APP_DEV_CLIENT_SECRET;
 
 export default class Process {
 	constructor() {

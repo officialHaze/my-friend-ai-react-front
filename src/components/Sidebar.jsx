@@ -85,7 +85,9 @@ export default function Sidebar({ userDetails, tokenReceived, setActiveView, act
 					<IoIosArrowForward />
 				</div>
 			) : (
-				<div className="hide-sidebar">
+				<div
+					className="hide-sidebar"
+					onClick={hideSidebar}>
 					<IoIosArrowBack />
 				</div>
 			)}

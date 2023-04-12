@@ -50,7 +50,7 @@ export default function ChatWindow({ messages, responses, userDetails }) {
 				setError(true);
 				setRetry(true);
 			}
-		}, 27000);
+		}, 35000);
 	}, [messages, responses]);
 
 	//only if error is true start the retry counter and keep reducing the counter value and updating the retry counter hook every sec

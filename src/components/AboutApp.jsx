@@ -14,9 +14,12 @@ export default function AboutApp() {
 					your questions, provide helpful insights, and even suggest study strategies
 					customized to your strengths and weaknesses. Whether you're studying for a test,
 					working on a paper, or just trying to stay organized, this app is the perfect
-					solution for anyone who wants to maximize their learning potential. Plus, with
-					intuitive note-taking tool you can be sure that you're staying on track and
-					making the most of your study time.
+					solution for anyone who wants to maximize their learning potential.
+					<br />
+					It does not store any kind of chat history due to privacy reasons, they are
+					available to you only per session. It mainly focuses on helping you find answers
+					to certain questions and letting you save those answers as notes for easy
+					accessibility in future.
 				</p>
 			</div>
 		</div>
