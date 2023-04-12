@@ -12,7 +12,17 @@ export default function ChatWindow({ messages, responses, userDetails }) {
 	const [retryCounter, setRetryCounter] = useState(counter);
 	const [retry, setRetry] = useState(false);
 	const updatedResponses = responses.map(response => {
-		return response.replace(/\n/g, "</br>");
+		let updatedRes = response;
+		const idxOfNewLineSymbol = response.indexOf("\n");
+		const idxOfAIPrefix = response.indexOf(":");
+		if (idxOfNewLineSymbol !== -1) {
+			if (idxOfAIPrefix >= 0) {
+				updatedRes = response.substring(idxOfAIPrefix + 1, response.length);
+			} else {
+				updatedRes = response.substring(idxOfNewLineSymbol + 1, response.length);
+			}
+		}
+		return updatedRes.replace(/\n/g, "</br>");
 	});
 	const [userProfilePic, setUserProfilePic] = useState("");
 

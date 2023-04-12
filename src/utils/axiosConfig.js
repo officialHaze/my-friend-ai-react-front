@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = process.env.REACT_APP_AXIOS_BASE_URL_PROD;
+axios.defaults.baseURL = process.env.REACT_APP_AXIOS_BASE_URL_DEV;
 
 const axiosInstance = axios.create({
 	timeout: 100000,
