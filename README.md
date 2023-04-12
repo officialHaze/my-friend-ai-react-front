@@ -1,8 +1,23 @@
-# Getting Started with Create React App
+# About My Friend AI
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+My Friend AI is a web chat application mainly developed for students as a tool
+who want to improve their studying and note-taking skills.
 
-## Available Scripts
+With AI technology powered by "OpenAI's GPT-3 model and Assembly AI", this app
+allows you to communicate with an intelligent virtual assistant that can answer
+your questions, provide helpful insights, and even suggest study strategies
+customized to your strengths and weaknesses. Whether you're studying for a test,
+working on a paper, or just trying to stay organized, this app is the perfect
+solution for anyone who wants to maximize their learning potential.
+
+It does not store any kind of chat history due to privacy reasons, they are
+available to you only per session. It mainly focuses on helping you find answers
+to certain questions and letting you save those answers as notes for easy
+accessibility in future.
+
+You can visit the website here:- [https://my-friend-ai.vercel.app/](https://my-friend-ai.vercel.app/)
+
+<!-- ## Available Scripts
 
 In the project directory, you can run:
 
@@ -67,4 +82,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 ### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify) -->
