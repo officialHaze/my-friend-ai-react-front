@@ -103,10 +103,39 @@ export default function Dashboard({ tokenReceived }) {
 		userTextsArrayForASession.push(inputObject);
 		try {
 			const messageFromAI = await postData(userTextsArrayForASession);
+			console.log(messageFromAI);
+			let updatedRes = messageFromAI;
+			const idxOfNewLineSymbol = messageFromAI.indexOf("\n");
+			const idxOfA = messageFromAI.indexOf("A");
+			const idxOfI = messageFromAI.indexOf("I");
+			const idxOfColon = messageFromAI.indexOf(":");
+			if (idxOfNewLineSymbol !== -1) {
+				if (idxOfA >= 0) {
+					if (idxOfI >= 0) {
+						if (idxOfColon >= 0) {
+							updatedRes = messageFromAI.substring(
+								idxOfColon + 1,
+								messageFromAI.length,
+							);
+						}
+					} //removing the AI: prefix that is occuring in some of the AI responses
+				} else {
+					updatedRes = messageFromAI.substring(
+						idxOfNewLineSymbol + 1,
+						messageFromAI.length,
+					);
+				}
+			} else if (idxOfA >= 0) {
+				if (idxOfI >= 0) {
+					if (idxOfColon >= 0) {
+						updatedRes = messageFromAI.substring(idxOfColon + 1, messageFromAI.length);
+					}
+				}
+			} //removing the AI: prefix that is occuring in some of the AI responses
 			setResponses(prevStr => {
-				return [...prevStr, messageFromAI];
+				return [...prevStr, updatedRes];
 			});
-			speak(synth, messageFromAI, disableSubmitBtn, enableSubmitBtn);
+			speak(synth, updatedRes, disableSubmitBtn, enableSubmitBtn);
 		} catch (err) {
 			const { status } = err.response;
 			console.log(status);
