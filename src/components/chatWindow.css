@@ -25,7 +25,6 @@
 	position: relative;
 	display: flex;
 	justify-content: space-between;
-	align-items: flex-start;
 }
 
 /* .ai-msg-container > p {
