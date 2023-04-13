@@ -22,7 +22,15 @@
 .ai-msg-container {
 	background: #eef2ff5d;
 	border-radius: 0 2rem 2rem 2rem;
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
 }
+
+/* .ai-msg-container > p {
+	padding: 1rem 0 0.5rem;
+} */
 
 .container-wrapper,
 .audio-container-wrapper {
@@ -91,6 +99,17 @@ audio::-webkit-media-controls-panel {
 	border-radius: 10px;
 }
 
+/* copy answer tab  */
+.copy-answer {
+	/* position: absolute;
+	right: 1rem;
+	top: 0;
+	text-align: right; */
+	padding: 0 0.85rem;
+	font-size: 1.1rem;
+	cursor: pointer;
+}
+
 @media only screen and (max-width: 600px) {
 	.chat-window {
 		height: 75vh;
@@ -101,7 +120,19 @@ audio::-webkit-media-controls-panel {
 	.ai-msg-container {
 		max-width: 13.5rem;
 		padding: 0.5rem 0.9rem;
-		font-size: 0.9rem;
+	}
+
+	.ai-msg-container > div,
+	.msg-container {
+		font-size: 0.85rem;
+	}
+
+	.ai-msg-container > div {
+		text-align: start !important;
+	}
+
+	.ai-msg-container > div:last-child {
+		font-size: 1rem;
 	}
 
 	.aires-container-wrapper,

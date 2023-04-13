@@ -43,6 +43,7 @@ export default function Dashboard({ tokenReceived }) {
 		savedNotes: false,
 		info: false,
 	}); // for mobile screens
+	const [isTextCopied, setIsTextCopied] = useState(false);
 
 	const submitBtn = useRef(null);
 	const synth = window.speechSynthesis;
@@ -271,6 +272,7 @@ export default function Dashboard({ tokenReceived }) {
 					setActiveView={setActiveView}
 					active={activeView}
 				/>
+				{isTextCopied && <div className="text-copied-container">copied to clipboard</div>}
 				<div className="dashboard">
 					{activeView.chat || activeView.note || activeView.info ? (
 						<div className="chat-board-container">
@@ -298,6 +300,7 @@ export default function Dashboard({ tokenReceived }) {
 											messages={messages}
 											responses={responses}
 											userDetails={userDetails}
+											setIsTextCopied={setIsTextCopied}
 										/>
 										{stopSpeechEnabled && (
 											<div className="stop-speech-button-container">

@@ -2,12 +2,14 @@ import React, { useRef, useEffect, useState } from "react";
 import TypingDots from "./TypingDots";
 import "./chatWindow.css";
 import logo from "../robot-logo.jpg";
+import { RiFileCopyFill } from "react-icons/ri";
 
 let counter = 25;
 let counterReducer;
 
-export default function ChatWindow({ messages, responses, userDetails }) {
+export default function ChatWindow({ messages, responses, userDetails, setIsTextCopied }) {
 	const bottomMarker = useRef(null);
+	const aiAnswer = useRef(null);
 	const [errorInRes, setError] = useState(false);
 	const [retryCounter, setRetryCounter] = useState(counter);
 	const [retry, setRetry] = useState(false);
@@ -129,11 +131,25 @@ export default function ChatWindow({ messages, responses, userDetails }) {
 									</div>
 									<div className="ai-chat-bubble">
 										<div className="ai-msg-container">
-											<p
-												dangerouslySetInnerHTML={{
-													__html: updatedResponses[i],
-												}}
-											/>
+											<div style={{ display: "flex", alignItems: "center", textAlign:'justify' }}>
+												<p
+													ref={aiAnswer}
+													dangerouslySetInnerHTML={{
+														__html: updatedResponses[i],
+													}}
+												/>
+											</div>
+											<div
+												className="copy-answer"
+												onClick={() => {
+													navigator.clipboard.writeText(responses[i]);
+													setIsTextCopied(true);
+													setTimeout(() => {
+														setIsTextCopied(false);
+													}, 2000); //remove the text copied message after 2s
+												}}>
+												<RiFileCopyFill />
+											</div>
 										</div>
 									</div>
 								</div>
@@ -152,7 +168,7 @@ export default function ChatWindow({ messages, responses, userDetails }) {
 												<p style={{ color: "#FA9884" }}>
 													{retry
 														? `Oh no ${userDetails.username} 😲! There was an error while getting a response from the server! Retrying, please wait (${retryCounter})`
-														: "It feels like the server is taking a nap 😤! Refreshing the page might sometimes solve the problem. If it dosen't, please check back after sometime. Sorry for the inconvenience friend. 🙁"}
+														: "Looks like the server is taking a nap 😤! Refreshing the page might sometimes solve the problem. If it dosen't, please check back after sometime. Sorry for the inconvenience friend. 🙁"}
 												</p>
 											) : (
 												<TypingDots />

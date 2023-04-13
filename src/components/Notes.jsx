@@ -48,6 +48,10 @@ export default function Notes({ tokenReceived, setIsNotesUpdated, noteFormData, 
 			if (status === 401) {
 				localStorage.removeItem("access_token");
 				tokenReceived(false);
+			} else {
+				alert(
+					"Error! Please make sure the title is not very long as it may create problems while creating or updating a note",
+				);
 			}
 			nProgress.done();
 		}
