@@ -11,7 +11,7 @@
 
 .note-cards-container {
 	flex-direction: column;
-	max-height: 90vh;
+	height: 100%;
 	overflow: auto;
 	border-radius: 2rem;
 	background: linear-gradient(
@@ -93,7 +93,7 @@
 }
 
 .search-bar:focus {
-	border: 0
+	border: 0;
 }
 
 .search-icon-container {
