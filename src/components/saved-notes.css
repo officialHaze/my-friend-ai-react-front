@@ -11,7 +11,7 @@
 
 .note-cards-container {
 	flex-direction: column;
-	height: 100%;
+	height: 90%;
 	overflow: auto;
 	border-radius: 2rem;
 	background: linear-gradient(
