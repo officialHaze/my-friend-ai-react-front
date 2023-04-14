@@ -30,6 +30,7 @@
 .saved-notes-container {
 	padding: 1rem 1rem;
 	width: 50rem;
+	height: 100vh;
 }
 
 /* note cards  */
