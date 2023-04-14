@@ -42,8 +42,8 @@
 
 .notes-wrapper {
 	border-radius: 2rem;
-	height: 100%;
-	overflow: hidden;
+	/* height: 100%;
+	overflow: hidden; */
 	position: relative;
 	background: linear-gradient(
 		to right bottom,

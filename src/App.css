@@ -153,6 +153,7 @@ form {
 	background: black;
 	box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.5);
 	border-radius: 0.5rem;
+	z-index: 20;
 }
 
 /* media query  */
@@ -211,9 +212,8 @@ form {
 		font-size: 0.95rem;
 	}
 
-	.text-copied-container{
+	.text-copied-container {
 		bottom: 2rem;
 		right: 20%;
-		z-index: 10;
 	}
 }
